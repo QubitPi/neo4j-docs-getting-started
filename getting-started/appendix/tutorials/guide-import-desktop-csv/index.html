@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1">
+    <meta name="msvalidate.01" content="B5163518CBE4A854B63801277FE5E35C" />
+    <meta name="google-site-verification" content="ucqagxjVuq0lJZeLKs0F5AppzK111lNt3IoxU6mzlJE" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WK23PSS');</script>
+<!-- Hotjar Tracking Code for staging -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3587741,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<!-- End Hotjar Tracking code -->
+    <title>How-To: Import CSV data with Neo4j Desktop - Getting Started</title>
+    <link rel="prev" href="../guide-import-relational-and-etl/">
+      <meta name="description" content="You will learn how to import data from CSV files to a Neo4j graph database using the Neo4j Desktop application. This tutorial is designed for you to follow along and step through the process.">
+<link rel="stylesheet" href="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/bundle.css" />
+<link rel="stylesheet" href="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/utilities.min.css" />
+
+    <link rel="preload" href="../../../../assets/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font">
+    <link rel="stylesheet" href="../../../../assets/css/site.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="https://neo4j.com/wp-content/themes/neo4jweb/favicon.ico" />
+
+
+
+    <meta property="neo:type" content="Docs">
+    <meta property="neo:site" content="Reference Docs">
+
+
+    <meta property="og:site_name" content="Neo4j Graph Data Platform" />
+    <meta property="article:publisher" content="https://www.facebook.com/neo4j.graph.database" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@neo4j" />
+    <meta name="twitter:site" content="@neo4j" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How-To: Import CSV data with Neo4j Desktop - Getting Started" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://dist.neo4j.com/wp-content/uploads/20210423062553/neo4j-social-share-21.png" />
+    <meta property="og:description" content="You will learn how to import data from CSV files to a Neo4j graph database using the Neo4j Desktop application. This tutorial is designed for you to follow along and step through the process." />
+    <meta property="og:url" content="https://neo4j.com/docs/getting-started/appendix/tutorials/guide-import-desktop-csv/" />
+    <link rel="shortcut icon" href="https://neo4j.com/wp-content/themes/neo4jweb/favicon.ico" />
+  </head>
+  <body class="article docs">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK23PSS"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script>(function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"mixpanel"!==c&&(d+="."+c);a||(d+=" (stub)");return d};a.people.toString=function(){return a.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
+for(h=0;h<i.length;h++)g(a,i[h]);var j="set set_once union unset remove delete".split(" ");a.get_group=function(){function b(c){d[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));a.push([e,call2])}}for(var d={},e=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<j.length;c++)b(j[c]);return d};b._i.push([e,f,c])};b.__SV=1.2;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?
+MIXPANEL_CUSTOM_LIB_URL:"file:"===f.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
+mixpanel.init("4bfb2414ab973c741b6f067bf06d5575", {batch_requests: true})
+mixpanel.track("Page View", {
+    pathname: window.location.origin + window.location.pathname,
+    search: window.location.search,
+    hash: window.location.hash,
+    referrer: document.referrer,
+})
+</script>
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+
+      <img class="navbar-logo" src="https://dist.neo4j.com/wp-content/uploads/20210422142941/neo4j-logo-2020.svg" alt="Neo4j Docs" />
+      <a href="/docs/" class="navbar-item no-left-padding" aria-label="Docs">
+        Docs
+      </a>
+
+      </div>
+
+      <button class="navbar-search search-button" data-target="topbar-nav" id="search_open_mobile" aria-label="Open Search">
+        <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" class="fill-current float-right" id="searchx" role="button" title="Search Website">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"
+            stroke-linejoin="round">
+            <g transform="translate(-2.000000, -2.000000)" stroke="#a0aec0" stroke-width="1.5">
+              <circle
+                transform="translate(11.389364, 11.388564) rotate(-23.025000) translate(-11.389364, -11.388564) "
+                cx="11.3893642" cy="11.3885639" r="8.056"></circle>
+              <path d="M17.0853333,17.0844444 L23.3333333,23.3333333" ></path>
+            </g>
+          </g>
+        </svg>
+      </button>
+      <button class="navbar-burger" data-target="topbar-nav" aria-label="Mobile Navigation Button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+            <div class="navbar-end">
+
+
+        <div class="navbar-item has-dropdown is-hoverable docs">
+          <a class="navbar-link" href="/docs/">Docs</a>
+          <div class="navbar-dropdown">
+            <div class="navbar-item project">
+              <span class="project-name">Neo4j DBMS</span>
+              <ul class="project-links">
+                <li><a href="/docs/getting-started/current/" class="project-link">Getting Started</a></li>
+                <li><a href="/docs/operations-manual/current/" class="project-link">Operations</a></li>
+                <li><a href="/docs/migration-guide/current/" class="project-link">Migration and Upgrade</a></li>
+                <li><a href="/docs/status-codes/current/" class="project-link">Status Codes</a></li>
+                <li><a href="/docs/java-reference/current/" class="project-link">Java Reference</a></li>
+                <li><a href="/docs/kerberos-add-on/current/" class="project-link">Kerberos Add-on</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <a class="project-name" href="/docs/aura/">Neo4j Aura</a>
+              <ul class="project-links">
+                <li><a class="project-link" href="/docs/aura">Neo4j Aura</a></li>
+                <li><a class="project-link" href="/docs/aura/auradb/">Neo4j AuraDB</a></li>
+                <li><a class="project-link" href="/docs/aura/aurads/">Neo4j AuraDS</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name">Neo4j Tools</span>
+              <ul class="project-links">
+                <li><a href="/docs/bloom-user-guide/current/" class="project-link">Neo4j Bloom</a></li>
+                <li><a href="/docs/browser-manual/current/" class="project-link">Neo4j Browser</a></li>
+                <li><a href="/docs/data-importer/current/" class="project-link">Neo4j Data Importer</a></li>
+                <li><a href="/docs/desktop-manual/current/" class="project-link">Neo4j Desktop</a></li>
+                <li><a href="/docs/ops-manager/current/" class="project-link">Neo4j Ops Manager</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name">Neo4j Graph Data Science</span>
+              <ul class="project-links">
+                <li><a href="/docs/graph-data-science/current/" class="project-link">Neo4j Graph Data Science Library</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name">Cypher Query Language</span>
+              <ul class="project-links">
+                <li><a href="/docs/cypher-manual/current/" class="project-link">Cypher</a></li>
+                <li><a href="/docs/cypher-cheat-sheet/current/" class="project-link">Cypher Cheat Sheet</a></li>
+                <li><a href="/docs/apoc/current/" class="project-link">APOC Library</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name" href="/docs/drivers-apis">Create applications</span>
+              <ul class="project-links">
+                <li><a href="/docs/python-manual/current/" class="project-link">Python Driver</a></li>
+                <li><a href="/docs/go-manual/current/" class="project-link">Go Driver</a></li>
+                <li><a href="/docs/java-manual/current/" class="project-link">Java Driver</a></li>
+                <li><a href="/docs/javascript-manual/current/" class="project-link">JavaScript Driver</a></li>
+                <li><a href="/docs/dotnet-manual/current/" class="project-link">.Net Driver</a></li>
+                <li><a href="/docs/graphql-manual/current/" class="project-link">Neo4j GraphQL Library</a></li>
+                <li><a href="/docs/http-api/current/" class="project-link">HTTP API</a></li>
+                <li><a href="/docs/ogm-manual/current/" class="project-link">OGM Library</a></li>
+                <li><a href="https://docs.spring.io/spring-data/neo4j/docs/current/reference/html/#reference" class="project-link">Spring Data Neo4j</a></li>
+                <li><a href="/docs/spark/" class="project-link">Neo4j Connector for Apache Spark</a></li>
+                <li><a href="/docs/kafka/" class="project-link">Neo4j Connector for Apache Kafka</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable labs">
+          <a class="navbar-link" href="/labs/">Labs</a>
+          <div class="navbar-dropdown">
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/arrows/">arrows.app</a>
+              <ul class="project-links">
+                <li><a href="/labs/arrows/" class="project-link">Details</a></li>
+                <li><a href="https://arrows.app" class="project-link">arrows.app</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/apoc/">APOC Extended</a>
+
+              <ul class="project-links">
+                <li><a href="/labs/apoc/5/" class="project-link">Documentation</a></li>
+                <li><a href="/developer/neo4j-apoc/" class="project-link">Developer Guide</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/halin/">Halin</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/etl-tool/">ETL Tool</a>
+              <ul class="project-links">
+                <li><a href="/labs/etl-tool/" class="project-link">Details</a></li>
+                <li><a href="/labs/etl-tool/1.5.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neo4j-migrations/">Neo4j Migrations</a>
+              <ul class="project-links">
+                <li><a href="/labs/neo4j-migrations/" class="project-link">Details</a></li>
+                <li><a href="/labs/neo4j-migrations/2.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/liquibase/">Neo4j Plugin For Liquibase</a>
+              <ul class="project-links">
+                <li><a href="/labs/liquibase/" class="project-link">Details</a></li>
+                <li><a href="https://github.com/liquibase/liquibase-neo4j" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neosemantics/">Neosemantics</a>
+              <ul class="project-links">
+                <li><a href="/labs/neosemantics/tutorial/" class="project-link">Getting Started</a></li>
+                <li><a href="/labs/neosemantics/4.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neo4j-helm/">Neo4j Helm</a>
+              <ul class="project-links">
+                <li><a href="/labs/neo4j-helm/" class="project-link">Details</a></li>
+                <li><a href="/labs/neo4j-helm/1.0.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neodash/">NeoDash</a>
+              <ul class="project-links">
+                <li><a href="/labs/neodash/" class="project-link">Details</a></li>
+                <li><a href="/labs/neodash/2.1/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neomodel/">neomodel</a>
+              <ul class="project-links">
+                <li><a href="/labs/neomodel/" class="project-link">Details</a></li>
+                <li><a href="https://neomodel.readthedocs.io/en/latest/" target="_blank" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable developer">
+          <a class="navbar-link" href="/developer/resources/">Get Help</a>
+          <div class="navbar-dropdown">
+            <div class="navbar-item project">
+              <a class="project-name" href="https://graphacademy.neo4j.com/?ref=docs" target="_blank">GraphAcademy</a>
+              <ul class="project-links">
+                <li><a class="project-link" href="https://graphacademy.neo4j.com/?ref=docs">Free, Self Paced Training</a></li>
+                <li><a class="project-link" href="https://graphacademy.neo4j.com/certification/?ref=docs" target="_blank">Certification</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <a class="project-name" href="https://dev.neo4j.com/forum" target="_blank">Community Forum</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="https://dev.neo4j.com/chat" target="_blank">Discord Chat</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/developer/kb" target="_blank">Knowledge Base</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="https://medium.com/neo4j" target="_blank">Neo4j Developer Blog</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="https://www.youtube.com/neo4j" target="_blank">Neo4j Videos</a>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-item is-hoverable getting-started-cta">
+          <a class="navbar-link primary" href="https://neo4j.com/cloud/platform/aura-graph-database/?ref=docs-nav-get-started">Get Started Free</a>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-link search-button" href="#search" id="search_open"><svg width="23px" height="23px" viewBox="0 0 23 23"
+              version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              class="fill-current float-right" id="search" role="button" title="Search Website">
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"
+                stroke-linejoin="round">
+                <g transform="translate(-2.000000, -2.000000)" stroke="#a0aec0" stroke-width="1.5">
+                  <circle
+                    transform="translate(11.389364, 11.388564) rotate(-23.025000) translate(-11.389364, -11.388564) "
+                    cx="11.3893642" cy="11.3885639" r="8.056"></circle>
+                  <path d="M17.0853333,17.0844444 L23.3333333,23.3333333" ></path>
+                </g>
+              </g>
+            </svg><span class="navbar-mobile">Search</span></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="getting-started" data-version="">
+  <aside class="nav">
+    <div class="panels">
+      <div class="selectors">
+        
+      </div>
+      <div class="nav-panel-menu is-active" data-panel="menu">
+    <nav class="nav-menu">
+    <ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../">Welcome to Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../../get-started-with-neo4j/">Get started with Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../get-started-with-neo4j/graph-database/">What is a graph database?</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../../data-modeling/">Model your data for Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../data-modeling/guide-data-modeling/">Graph modeling guidelines</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../data-modeling/modeling-designs/">Modeling designs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../data-modeling/relational-to-graph-modeling/">Modeling: relational to graph</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../data-modeling/modeling-tips/">Graph modeling tips</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../data-modeling/graph-model-refactoring/">Graph model refactoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../data-modeling/data-modeling-tools/">Data modeling tools</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../../data-import/">Import your data into Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../data-import/csv-import/">Importing CSV data into Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../data-import/json-rest-api-import/">Importing JSON data from a REST API into Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../data-import/relational-to-graph-import/">Import: RDBMS to graph</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../../cypher-intro/">Query a Neo4j database</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/cypher-sql/">Comparing Cypher with SQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/patterns/">Patterns</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/patterns-in-practice/">Patterns in practice</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/results/">Getting the correct results</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/updating/">Updating the data</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/large-statements/">Composing large statements</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/subqueries/">Subqueries in Cypher</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/schema/">Defining a schema</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/dates-datetimes-durations/">Dates, datetimes, and durations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/procedures-functions/">How to extend Cypher</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/load-csv/">Tutorial: Import data</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../cypher-intro/resources/">Cypher resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../../languages-guides/">Connect to Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link nav-item-toggle" href="../../../languages-guides/java/java-intro/">Using Neo4j from Java</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../languages-guides/java/spring-data-neo4j/">Spring Data Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../languages-guides/java/quarkus/">Quarkus</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../languages-guides/java/java-frameworks/">Helidon, Micronaut</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../languages-guides/java/neo4j-ogm/">Neo4j - OGM Object Graph Mapper</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../../languages-guides/java/java-procedures/">Procedures and Functions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../languages-guides/neo4j-dotnet/">Using Neo4j from .NET</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../languages-guides/neo4j-javascript/">Neo4j from JavaScript</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../languages-guides/neo4j-python/">Using Neo4j from Python</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../languages-guides/neo4j-go/">Using Neo4j from Go</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../languages-guides/integration-tools/integration/">Neo4j Connectors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../languages-guides/community-drivers/">Community-contributed libraries</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../gds/">Data science with Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../../graph-visualization/graph-visualization/">Visualize your data in Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../../graph-visualization/graph-visualization-tools/">Graph visualization tools</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link nav-item-toggle" href="../../graphdb-concepts/">Graph database concepts</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../graphdb-concepts/graphdb-vs-rdbms/">Transition from relational to graph database</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../graphdb-concepts/graphdb-vs-nosql/">Transition from NoSQL to graph database</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../example-data/">Example datasets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../getting-started-resources/">Getting started resources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link nav-item-toggle" href="../tutorials-overview/">Tutorials</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../guide-cypher-basics/">Tutorial: Getting Started with Cypher</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../guide-build-a-recommendation-engine/">Tutorial: Build a Cypher Recommendation Engine</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../guide-import-relational-and-etl/">Tutorial: Import data from a relational database into Neo4j</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="./">How-To: Import CSV data with Neo4j Desktop</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+  <div class="toolbar-wrapper">
+    <button class="nav-toggle" aria-label="Toggle Table of Contents"></button>
+    <a href="../../../" class="home-link" aria-label="Go to home page"></a>
+    <nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../../">Getting Started</a></li>
+    <li><a href="../../">
+        Appendix
+    </a></li>
+    <li><a href="../tutorials-overview/">
+        Tutorials
+    </a></li>
+    <li><a href="./">
+        How-To: Import CSV data with Neo4j Desktop
+    </a></li>
+  </ul>
+</nav>
+        <div class="edit-this-page"><a href="https://github.com/neo4j/docs-getting-started/tree/HEAD/modules/ROOT/pages/appendix/tutorials/guide-import-desktop-csv.adoc">Edit this Page</a></div>
+    </div>
+</div>
+
+  <div class="content">
+<article class="doc">
+<div class="sect-header">
+<h1 class="page">How-To: Import CSV data with Neo4j Desktop</h1>
+</div>
+
+
+
+
+
+<div class="sect1">
+<h2 id="about-desktop-import"><a class="anchor" href="#about-desktop-import"></a>Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Neo4j Desktop provides a user-friendly interface for creating and starting Neo4j instances, adding or removing plugins, changing configurations, and other functionality.
+It also includes some shortcuts and easy access for importing files (such as CSVs) into Neo4j.</p>
+</div>
+<div class="paragraph">
+<p>In this guide, you will work with a zipped folder containing three CSV files and import the data to a graph with Neo4j Desktop.
+The CSV files contain data for products, orders, and order line items.
+You will look at the data in the files later in this guide.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="start-db"><a class="anchor" href="#start-db"></a>Creating and starting the Neo4j instance</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you already know how to create a Project in Neo4j Desktop, a Neo4j instance (DBMS), and start the DBMS, you can skip to the next step: <a href="#csv-location">Adding CSV files to the import folder</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you open Neo4j Desktop for the first time, you will see a <strong>Neo4j Primer Project</strong> with the <em>Movie Database</em> already started.
+You can use this database if you want to begin learning about using Neo4j and Cypher<sup>&reg;</sup>.
+However, you can create your own Project which can contain one or more DBMSs.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s take a look on how to create a new Project, and how to create and start a Neo4j instance in Neo4j Desktop.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You can only have a single DBMS running at once.
+To start a new one, you must first stop the DBMS that is active by clicking the <code>Stop</code> button on the top bar.
+As the result, you can see that there will be <strong>No active DBMS</strong>.</p>
+</li>
+<li>
+<p>To add a new project, go to the <strong>Projects</strong> drawer on the left sidebar by clicking the icon <span class="image"><img src="../../../_images/neo4j-desktop-project-icon.png" alt="neo4j desktop project icon" width="30"></span> and then click the <code>New</code> button in front of <strong>Projects</strong>.
+This creates a project named <strong>Project</strong>.</p>
+</li>
+<li>
+<p>To change the name of a project, hover its name and select the <code>Edit</code> button.<br></p>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/generic-name_project.png" alt="generic name project" width="650">
+</div>
+</div>
+<div class="paragraph">
+<p>Type a name for the project and select the <code>Check</code> button to save it.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/generic-change_project_name.png" alt="generic change project name" width="650">
+</div>
+</div>
+</li>
+<li>
+<p>Next, you will create a local DBMS in a project.
+Click the <code>Add</code> button beside the name of the project where you want to add the DBMS and then select <strong>Local DBMS</strong>.
+This opens a dialog box where you can specify the details of the DBMS.</p>
+</li>
+<li>
+<p>Now you can name your DBMS.
+You can use the default name <em>Graph DBMS</em>, but it is recommended to rename it to help you with identifying it.
+For more details, see <a href="https://neo4j.com/docs/upgrade-migration-guide/current/version-4/migration/surface-changes/database/#_database_naming_rules">Upgrade and Migration Guide &#8594; Database naming rules</a>.<br></p>
+<div class="paragraph">
+<p>Here <em>MyDBMS</em> is specified as the name:</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/generic-name_DBMS.png" alt="generic name DBMS" width="650">
+</div>
+</div>
+</li>
+<li>
+<p>You <span class="underline">must</span> specify a password for the DBMS.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Starting with <strong>Neo4j 5.3</strong>, the initial password must be at least <strong>eight characters</strong> long.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/generic-password_DBMS.png" alt="generic password DBMS" width="650">
+</div>
+</div>
+</li>
+<li>
+<p>Neo4j Desktop automatically creates a DBMS with default version, but you can select a different version for it.
+However, you can select a different version.
+Keep in mind that if there is a down arrow shown next to the version, this means that Neo4j Desktop will need to download resources for that particular version of the DBMS.
+To do this you <span class="underline">must</span> be connected to the Internet.<br></p>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/generic-version_DBMS.png" alt="generic version DBMS" width="650">
+</div>
+</div>
+</li>
+<li>
+<p>After specifying the details for the DBMS, click the <code>Create</code> button.
+Here is what you should see after the DBMS is successfully created:</p>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/generic-DBMS_created.png" alt="generic DBMS created">
+</div>
+</div>
+</li>
+<li>
+<p>Since you cannot have more than one active DBMS at once, make sure to stop any running instances before starting your newly-created one by hovering to the right of its name and clicking the <code>Start</code> button.</p>
+<div class="paragraph">
+<p>The DBMS will take a few seconds to start.
+If successful, you should see something like this:</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/generic-DBMS_started.png" alt="generic DBMS started">
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>After the DBMS is started, you can access it through clients such as Neo4j Browser and Neo4j Bloom running on your system.
+In Neo4j Desktop, the DBMS is an Enterprise Server, but it can only be accessed locally.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="csv-location"><a class="anchor" href="#csv-location"></a>Adding CSV files to the import folder</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, download this <a href="https://s3.amazonaws.com/dev.assets.neo4j.com/wp-content/uploads/desktop-csv-import.zip" target="_blank" rel="noopener">zip file</a>.
+Uncompress it to yield three CSV files for products, orders, and order details, and then add them to the <strong>import</strong> folder in Neo4j Desktop.</p>
+</div>
+<div class="paragraph">
+<p>You can open a finder window by hovering over the three dots to the right side of the started DBMS and select  <strong>Open folder</strong>, then <strong>Import</strong>:</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/generic-open_import_folder.png" alt="generic open import folder">
+</div>
+</div>
+<div class="paragraph">
+<p>Another option is to copy or move the three CSV files into the <strong>import directory</strong> on your system.
+For more information on Neo4j file locations, see <a href="https://neo4j.com/docs/operations-manual/5/configuration/file-locations/">Operations Manual &#8594; Default file locations</a>.</p>
+</div>
+<div class="paragraph">
+<p>Now that your files are in the <strong>import</strong> folder, you can import the data into the database managed by the DBMS.
+You will use the current table and column format in the CSV files and translate it into nodes and relationships.
+This can be done in a few different ways, but you will use Cypher&#8217;s <code>LOAD CSV</code> command in this guide.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="loadcsv-desktop"><a class="anchor" href="#loadcsv-desktop"></a><code>LOAD CSV</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>LOAD CSV</code> is a built-in command in Cypher that allows you to read CSV files and append regular Cypher queries to create or update the data as a graph.
+You can also use <code>LOAD CSV</code> without creating the graph to output samples, counts, or distributions.
+This helps to detect incorrect header column counts, delimiters, quotes, escapes, or spelling of header names before the data is written and stored.</p>
+</div>
+<div class="paragraph">
+<p>To enter and run Cypher queries on a started DBMS, you can:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Use <a href="https://neo4j.com/docs/browser-manual/current/">Neo4j Browser</a>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click the <code>Open</code> button for the started DBMS.</p>
+</li>
+<li>
+<p>Type or copy Cypher queries into the edit pane at the top (<a href="https://neo4j.com/docs/browser-manual/current/visual-tour/#editor">Cypher editor</a>).</p>
+</li>
+<li>
+<p>Execute the Cypher queries with the <code>play</code> button on the right.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Use <a href="https://neo4j.com/docs/operations-manual/current/tools/cypher-shell/">Cypher Shell</a>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click the drop-down menu to the right of the <code>Open</code> button and select <strong>Terminal</strong>.</p>
+</li>
+<li>
+<p>Enter <code>bin/cypher-shell</code>.</p>
+</li>
+<li>
+<p>Enter <strong>neo4j</strong> for the user.</p>
+</li>
+<li>
+<p>Enter the password you specified for the DBMS.</p>
+</li>
+<li>
+<p>Use <code>:exit</code> to quit.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>All Cypher queries must end with semicolon <code>;</code> in Cypher Shell.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Earlier you downloaded the <strong>.zip</strong> file and copied its CSV files to the <strong>import</strong> folder for the DBMS.
+It is recommended that before you insert anything into your graph database, you should inspect the data in the files to be added to the <strong>import</strong> folder.
+To do this, you can use the <code>LOAD CSV</code> statement.<br></p>
+</div>
+<div class="paragraph">
+<p>If you opened the files previously, you may have noticed that two of the files have headers and one does not (<strong>products.csv</strong>).
+To inspect each file, check how many lines there are in the CSV files to ensure they were not corrupted or cut off during a potential export process.
+For files with headers, you can add the <code>WITH HEADERS</code> clause after <code>LOAD CSV</code>, so that it excludes the header row in the count, and only counts the rows of data.</p>
+</div>
+<div class="paragraph">
+<p>Here are the Cypher queries to be used:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//count data rows in products.csv (no headers)
+LOAD CSV FROM 'file:///products.csv' AS row
+RETURN count(row);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//count data rows in orders.csv (headers)
+LOAD CSV WITH HEADERS FROM 'file:///orders.csv' AS row
+RETURN count(row);</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//count data rows in order-details.csv (headers)
+LOAD CSV WITH HEADERS FROM 'file:///order-details.csv' AS row
+RETURN count(row);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Running these statements should return the following counts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>77 rows for <strong>products.csv</strong></p>
+</li>
+<li>
+<p>830 rows for <strong>orders.csv</strong></p>
+</li>
+<li>
+<p>2155 rows for <strong>order-details.csv</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="inspect-files"><a class="anchor" href="#inspect-files"></a>View data with <code>LOAD CSV</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Next, you can take a look at what the data looks like in the CSV files and how <code>LOAD CSV</code> sees it.
+The only line you need to change from the Cypher query above is the <code>RETURN</code> clause.
+Since these files have several rows, use <code>LIMIT</code> to only get a sample.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//view data rows in products.csv
+LOAD CSV FROM 'file:///products.csv' AS row
+RETURN row
+LIMIT 3;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your results should look something like this:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">row</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">["1", "Chai", "18"]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">["2", "Chang", "19"]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">["3", "Aniseed Syrup", "10"]</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//count data rows in orders.csv (headers)
+LOAD CSV WITH HEADERS FROM 'file:///orders.csv' AS row
+RETURN row
+LIMIT 5;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your results should look something like this:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">row</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+  "orderID": "10248",
+  "orderDate": "1996-07-04 00:00:00.000",
+  "shipCountry": "France"
+}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+  "orderID": "10249",
+  "orderDate": "1996-07-05 00:00:00.000",
+  "shipCountry": "Germany"
+}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+  "orderID": "10250",
+  "orderDate": "1996-07-08 00:00:00.000",
+  "shipCountry": "Brazil"
+}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+  "orderID": "10251",
+  "orderDate": "1996-07-08 00:00:00.000",
+  "shipCountry": "France"
+}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+  "orderID": "10252",
+  "orderDate": "1996-07-09 00:00:00.000",
+  "shipCountry": "Belgium"
+}</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//count data rows in order-details.csv (headers)
+LOAD CSV WITH HEADERS FROM 'file:///order-details.csv' AS row
+RETURN row
+LIMIT 8;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your results should look something like this:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">row</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "quantity": "12",
+   "productID": "11",
+   "orderID": "10248"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "quantity": "10",
+   "productID": "42",
+   "orderID": "10248"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "quantity": "5",
+   "productID": "72",
+   "orderID": "10248"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "quantity": "9",
+   "productID": "14",
+   "orderID": "10249"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "quantity": "40",
+   "productID": "51",
+   "orderID": "10249"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "quantity": "10",
+   "productID": "41",
+   "orderID": "10250"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "quantity": "35",
+   "productID": "51",
+   "orderID": "10250"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "quantity": "15",
+   "productID": "65",
+   "orderID": "10250"
+ }</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Notice that <strong>orders.csv</strong> and <strong>order-details.csv</strong> return data in a different format than <strong>products.csv</strong>.
+This is because those files have headers, so the column names are returned with the values for those rows.
+Since <strong>products.csv</strong> does not have column names, then <code>LOAD CSV</code> just returns the plain data row from the file.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="filtering-load"><a class="anchor" href="#filtering-load"></a>Filtering loaded data with <code>LOAD CSV</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After inspecting the data, you may only want to view or load a subset of the data in the CSV file.
+You can filter what you view (or load) as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//count data rows in orders.csv (headers)
+LOAD CSV WITH HEADERS FROM 'file:///orders.csv' AS row
+WITH row WHERE row.shipCountry = 'Germany'
+RETURN row
+LIMIT 5;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your results should look something like this:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">row</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "orderID": "10249",
+   "orderDate": "1996-07-05 00:00:00.000",
+   "shipCountry": "Germany"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "orderID": "10260",
+   "orderDate": "1996-07-19 00:00:00.000",
+   "shipCountry": "Germany"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "orderID": "10267",
+   "orderDate": "1996-07-29 00:00:00.000",
+   "shipCountry": "Germany"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "orderID": "10273",
+   "orderDate": "1996-08-05 00:00:00.000",
+   "shipCountry": "Germany"
+ }</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>{
+   "orderID": "10277",
+   "orderDate": "1996-08-09 00:00:00.000",
+   "shipCountry": "Germany"
+ }</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="data-types"><a class="anchor" href="#data-types"></a>Data types</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <code>LOAD CSV</code> command reads all values as a string.
+No matter how the value appears in a file, it will be loaded as a string with <code>LOAD CSV</code>.
+So, before you import, make sure you convert any values that are non-string.</p>
+</div>
+<div class="paragraph">
+<p>There are a variety of conversion functions in Cypher.
+The ones you will use for this exercise are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code><strong>toInteger()</strong></code>: converts a value to an integer.</p>
+</li>
+<li>
+<p><code><strong>toFloat()</strong></code>: converts a value to a float (in this case, for monetary amounts).</p>
+</li>
+<li>
+<p><code><strong>datetime()</strong></code>: converts a value to a <em>DateTime</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We look at the values in each CSV file to determine what needs to be converted.</p>
+</div>
+<div class="paragraph">
+<div class="title">Products.csv</div>
+<p>The values in the <strong>products.csv</strong> files are for <code>productID</code>, <code>productName</code>, and <code>unitCost</code>.
+<code>productID</code> looks like an integer value that increases with each row, so you can convert this to an integer using the <code>toInteger()</code> function in Cypher.
+<code>productName</code> can remain a string since it consists of characters.
+The final column is the product <code>unitCost</code>.
+Though the sample values from your inspection are all whole numbers, monetary amounts often have decimal place values.
+For this reason, it is recommended to convert these values to floats using the <code>toFloat()</code> function.</p>
+</div>
+<div class="paragraph">
+<p>Below is how you should run the Cypher query.
+Keep in mind that you are still not loading the values into Neo4j at this point.
+You will be just viewing the CSV files with converted values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">LOAD CSV FROM 'file:///products.csv' AS row
+WITH toInteger(row[0]) AS productId, row[1] AS productName, toFloat(row[2]) AS unitCost
+RETURN productId, productName, unitCost
+LIMIT 3;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your results should look something like this:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">productId</th>
+<th class="tableblock halign-left valign-top">productName</th>
+<th class="tableblock halign-left valign-top">unitCost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Chai"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">18.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Chang"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">19.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Aniseed Syrup"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10.0</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Note that we are using collection positions (row[0], row[1], row[2]) to refer to the columns in the row and improve readability by using aliases to reference them in the return.
+In a file that has no headers, this is how to reference values in each position.</p>
+</div>
+<div class="paragraph">
+<div class="title">Orders.csv</div>
+<p>The values in the <strong>orders.csv</strong> (per the column names) are for <code>orderID</code>, <code>orderDate</code>, and <code>shipCountry</code>.
+Again, you can evaluate the values and determine any conversions to apply.</p>
+</div>
+<div class="paragraph">
+<p><code>OrderID</code> looks like an integer, so you can convert that using the <code>toInteger()</code> function.
+The <code>orderDate</code> column is certainly in a date format and will require us to format it using the <code>datetime()</code> function.
+Finally, the shipCountry values are characters, so you can leave that as a string.</p>
+</div>
+<div class="paragraph">
+<p>Just as you did with the last CSV files, let us look at the results of these conversions without importing the data.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">LOAD CSV WITH HEADERS FROM 'file:///orders.csv' AS row
+WITH toInteger(row.orderID) AS orderId, datetime(replace(row.orderDate,' ','T')) AS orderDate, row.shipCountry AS country
+RETURN orderId, orderDate, country
+LIMIT 5;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your results should look something like this:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">orderId</th>
+<th class="tableblock halign-left valign-top">orderDate</th>
+<th class="tableblock halign-left valign-top">country</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10248</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"1996-07-04T00:00:00Z"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"France"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10249</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"1996-07-05T00:00:00Z"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Germany"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10250</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"1996-07-08T00:00:00Z"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Brazil"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10251</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"1996-07-08T00:00:00Z"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"France"</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10252</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"1996-07-09T00:00:00Z"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">"Belgium"</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>There was one tricky thing with this CSV in the <code>orderDate</code> column.
+Neo4j&#8217;s datetime uses the <a href="https://en.wikipedia.org/wiki/ISO_8601" target="_blank" rel="noopener">ISO 8601</a> format which uses the delimiter <code>T</code> between the date and time values.
+The CSV file does not have the 'T' joining the date and time values but has a space between them instead.
+You used the <code>replace()</code> function to change the space to the character 'T' and get the string into the expected format.
+Then, you wrapped the <code>datetime()</code> function around that to convert the changed string to a <em>DateTime</em> value.</p>
+</div>
+<div class="paragraph">
+<div class="title">Order-details.csv</div>
+<p>The values in the <strong>order-details.csv</strong> (from column names) are for <code>productID</code>, <code>orderID</code>, and <code>quantity</code>.
+Let us look at which ones need to be converted.</p>
+</div>
+<div class="paragraph">
+<p><code>productID</code> is also from the <strong>products.csv</strong> file, where you converted that value to an integer.
+You will do the same here to ensure you match formats.
+The <code>orderID</code> field contains values from the <strong>orders.csv</strong> file, so you will match your previous conversion and translate this field to an integer, as well.
+The <code>quantity</code> field in this file is a numeric value.
+You can convert this to an integer with the <code>toInteger()</code> function you have been using.</p>
+</div>
+<div class="paragraph">
+<p>The results of these conversions are in the code below.
+Remember that you still are not loading any data yet.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">LOAD CSV WITH HEADERS FROM 'file:///order-details.csv' AS row
+WITH toInteger(row.productID) AS productId, toInteger(row.orderID) AS orderId, toInteger(row.quantity) AS quantityOrdered
+RETURN productId, orderId, quantityOrdered
+LIMIT 8;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your results should look something like this:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">productId</th>
+<th class="tableblock halign-left valign-top">orderId</th>
+<th class="tableblock halign-left valign-top">quantityOrdered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10248</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">42</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10248</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">72</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10248</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10249</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">51</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10249</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">40</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">41</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10250</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">51</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10250</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">35</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">65</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10250</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="loading-data"><a class="anchor" href="#loading-data"></a>Loading the data</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you have determined that the CSV file data looks good, and you have verified how <code>LOAD CSV</code> sees the data and converted any non-string values, you are almost ready to create the data in our graph database.</p>
+</div>
+<div class="paragraph">
+<p>To do that, you will use Cypher statements alongside the <code>LOAD CSV</code> commands you used above.
+The <code>LOAD CSV</code> will read the files, and the Cypher statements will create the data in your database.</p>
+</div>
+<div class="sect2">
+<h3 id="_graph_data_model"><a class="anchor" href="#_graph_data_model"></a>Graph data model</h3>
+<div class="paragraph">
+<p>An important step you need before writing Cypher statements, though, is to determine what the graph structure should look like once you import your file data.
+After all, importing the data from the existing table and column data will not provide the value you want to achieve from a graph.
+To utilize the graph database fully, you need a graph data model.</p>
+</div>
+<div class="paragraph">
+<p>Though there are a variety of ways to organize the products and orders in your files, this will be addressed in another guide.
+Use the following version of the model for this exercise:</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/developer-desktop-csv-import-data_model-arr.svg" alt="developer desktop csv import data model arr" width="700">
+</div>
+</div>
+<div class="paragraph">
+<p>You have two nodes - one for a product and one for an order.
+Each of those nodes have properties from the CSV files.
+For the <code>Product</code>, you have ID, name, and unit cost.
+For the <code>Order</code>, you have ID, date/time, and country where it is going to.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>order-details.csv</strong> file defines the relationship between those two nodes.
+It has the product ID, the order ID it belongs to, and the quantity of the product in the order.
+In the data model, these become the <code>CONTAINS</code> relationship between <code>Product</code> and <code>Order</code> nodes.
+The property <code>quantityOrdered</code> is also included to the relationship because the product quantity value only exists when a product is related to an order.</p>
+</div>
+<div class="paragraph">
+<p>Now that you know the types of nodes and relationships you will have and the properties involved, you can construct the Cypher statements to create the data for this model.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_avoiding_duplicates_and_increasing_performance"><a class="anchor" href="#_avoiding_duplicates_and_increasing_performance"></a>Avoiding duplicates and increasing performance</h3>
+<div class="paragraph">
+<p>One final thing you need to think about before you create data in the graph is ensuring values are unique and performance is efficient.
+To handle this, you can use constraints.
+Just as with other databases, constraints ensure data integrity criteria are not violated, while simultaneously indexing the property with the constraint for faster query performance.</p>
+</div>
+<div class="paragraph">
+<p>There are cases for applying indexes to a database before any data is imported and when there is already existing data.
+In this exercise, you will add two constraints before you create any data - one for <code>productId</code> and one for <code>orderId</code>.
+This will ensure that, when you create a new node of each of those types or a relationship to connect them, you know the entities are unique and indexed.</p>
+</div>
+<div class="paragraph">
+<p>Below is the Cypher for adding constraints:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">CREATE CONSTRAINT UniqueProduct FOR (p:Product) REQUIRE p.id IS UNIQUE;
+CREATE CONSTRAINT UniqueOrder FOR (o:Order) REQUIRE o.id IS UNIQUE;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="write-statements"><a class="anchor" href="#write-statements"></a>Cypher queries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now you are ready to write the Cypher for creating the data in the graph.</p>
+</div>
+<div class="paragraph">
+<p>You could use the <code>CREATE</code> clause where you are sure that you will not have duplicate rows in your CSV file and use <code>MATCH</code> to find existing data for updates.
+However, since it is hard to completely scrub all data and import perfectly clean data from any source, you will use the <code>MERGE</code> clause to check if the data already exists.
+If the node or relationship exists, Cypher will match and return them (without any writes), but if they do not exist, Cypher will insert it.</p>
+</div>
+<div class="paragraph">
+<p>Using <code>MERGE</code> can have some performance overhead, but often it is the better approach to maintain high data integrity.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Why use both constraints and <code>MERGE</code>:</strong>
+Using constraints is different from using the <code>MERGE</code> clause.
+Statements that create data in violation of the constraint prompt an error, while statements that use the <code>MERGE</code> clause simply return existing values (no errors).</p>
+</div>
+<div class="paragraph">
+<p>If you use both, you avoid terminating your load statements due to constraint violations, and you also ensure you don&#8217;t accidentally create duplicates in adhoc queries.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<div class="title">Products</div>
+<p>To start loading the products into the graph, use the <code>LOAD CSV</code> statement from above and then run the Cypher query to create the data from the CSV files into your model.
+Remember to use <code>MERGE</code> to check whether the <code>Product</code> already exists.
+The properties will be set to the converted values you handled earlier in this guide.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">LOAD CSV FROM 'file:///products.csv' AS row
+WITH toInteger(row[0]) AS productId, row[1] AS productName, toFloat(row[2]) AS unitCost
+MERGE (p:Product {productId: productId})
+  SET p.productName = productName, p.unitCost = unitCost
+RETURN count(p);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you run that statement, it will return the number of product nodes (<code>count(p)</code>) that were created in the database.
+You can cross-check that number with the number of rows in the CSV file from earlier (77 rows in <strong>products.csv</strong>).
+You can also run a validation query to return a sample of nodes and review that the properties look accurate.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//validate products loaded correctly
+MATCH (p:Product)
+RETURN p LIMIT 20;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here are the results in Neo4j Browser:</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/developer-desktop-csv-import-verify_products.png" alt="developer desktop csv import verify products">
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Orders</div>
+<p>Next, you will load the orders.
+Again, since you want to verify you do not create duplicate <code>Order</code> nodes, you can use the <code>MERGE</code> clause.
+Just as with products, you start with the <code>LOAD CSV</code> command, then add Cypher queries, and include your data conversions.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">LOAD CSV WITH HEADERS FROM 'file:///orders.csv' AS row
+WITH toInteger(row.orderID) AS orderId, datetime(replace(row.orderDate,' ','T')) AS orderDate, row.shipCountry AS country
+MERGE (o:Order {orderId: orderId})
+  SET o.orderDateTime = orderDate, o.shipCountry = country
+RETURN count(o);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also run a validation query, as before, to verify the graph data looks correct.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//validate orders loaded correctly
+MATCH (o:Order)
+RETURN o LIMIT 20;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here are the results in Neo4j Browser:</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/developer-desktop-csv-import-verify_orders.png" alt="developer desktop csv import verify orders">
+</div>
+</div>
+<div class="paragraph">
+<div class="title">Order-details</div>
+<p>Last, but not least, you will create the relationship between the products and the orders.
+Since you expect all of your products and all of your orders to already exist in the graph (that data should have been loaded with the last two files), then you start with <code>MATCH</code> to find the existing <code>Product</code> and <code>Order</code> nodes.
+Then, the <code>MERGE</code> statement will add the new relationship or match an existing one.</p>
+</div>
+<div class="paragraph">
+<p>As you found when you ran a count on the <em>order-details</em> file above, there are 2,155 rows in the CSV.
+While this is not a huge number for file imports, you will have Cypher commit the data to the database in batches to reduce the memory overhead of the transaction state.
+For this, you can use the subquery <code>CALL {&#8230;&#8203;} IN TRANSACTIONS</code> after the <code>LOAD CSV</code> clause.</p>
+</div>
+<div class="paragraph">
+<p>The number of input rows is set with the modifier <code>OF n ROWS</code> (or <code>ROW</code>).
+If omitted, the default batch size is 1000 rows.
+For this exercise, you will ask Cypher to commit every <strong>500 rows</strong>.
+You could decrease this number if you have a lot of memory already allocated to other tasks, or if it is limited.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">LOAD CSV WITH HEADERS FROM 'file:///order-details.csv' AS row
+CALL {
+ WITH row
+ MATCH (p:Product {productId: toInteger(row.productID)})
+ MATCH (o:Order {orderId: toInteger(row.orderID)})
+ MERGE (o)-[rel:CONTAINS {quantityOrdered: toInteger(row.quantity)}]-&gt;(p)
+} IN TRANSACTIONS OF 500 ROWS</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In Neo4j Browser, don&#8217;t forget to prepend the preceding Cypher query with <code>:auto</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Just as you did above, you can validate the data with the query below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MATCH (o:Order)-[rel:CONTAINS]-&gt;(p:Product)
+RETURN p, rel, o LIMIT 50;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here are the results in Neo4j Browser:</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../../_images/developer-desktop-csv-import-verify_details.png" alt="developer desktop csv import verify details">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="import-wrapup"><a class="anchor" href="#import-wrapup"></a>Wrapping up</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You have successfully loaded three CSV files into a Neo4j graph database using Neo4j Desktop.</p>
+</div>
+<div class="paragraph">
+<p>The <code>LOAD CSV</code> functionality, coupled with Cypher, is exceptionally useful for getting data from files into a graph structure.
+The best way to advance your skills in this area is to load a variety of files for various datasets and models.</p>
+</div>
+<div class="paragraph">
+<div class="title">Increasing the challenge</div>
+<p>If you work through this exercise again at a later time, feel free to increase the challenge by coming up with your own data model for these files or try to load some other CSV files to a graph.</p>
+</div>
+<div class="paragraph">
+<p>If you have any questions or need assistance using <code>LOAD CSV</code>, reach out to us on the <a href="https://community.neo4j.com/" target="_blank" rel="noopener">Community Site</a>.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../guide-import-relational-and-etl/">Tutorial: Import data from a relational database into Neo4j</a></span>
+
+</nav>
+    <div class="feedback">
+    <div class="header question">
+        <p><strong>Was this page helpful?</strong></p>
+
+        <svg width="22px" height="22px" viewBox="0 0 22 22" role="button" class="no" aria-label="No, this page isn't helpful">
+            <path
+                d="M6.25,15.8333333 C6.25,13.7622655 7.92893219,12.0833333 10,12.0833333 C12.0710678,12.0833333 13.75,13.7622655 13.75,15.8333333"
+                ></path>
+            <circle  cx="10" cy="10" r="9.58333333"></circle>
+            <path
+                d="M12.5,4.58333333 C12.8934466,4.05873783 13.5109223,3.75 14.1666667,3.75 C14.822411,3.75 15.4398867,4.05873783 15.8333333,4.58333333"
+                ></path>
+            <line x1="4.58333333" y1="7.91666667" x2="7.08333333" y2="7.91666667" ></line>
+            <path
+                d="M7.08333333,8.54166667 C6.96827401,8.54166667 6.875,8.44839266 6.875,8.33333333 C6.875,8.21827401 6.96827401,8.125 7.08333333,8.125 C7.19839266,8.125 7.29166667,8.21827401 7.29166667,8.33333333 C7.29166667,8.44839266 7.19839266,8.54166667 7.08333333,8.54166667"
+                ></path>
+            <line x1="12.9166667" y1="7.91666667" x2="15.4166667" y2="7.91666667" ></line>
+            <path
+                d="M15.4166667,8.54166667 C15.3016073,8.54166667 15.2083333,8.44839266 15.2083333,8.33333333 C15.2083333,8.21827401 15.3016073,8.125 15.4166667,8.125 C15.531726,8.125 15.625,8.21827401 15.625,8.33333333 C15.625,8.44839266 15.531726,8.54166667 15.4166667,8.54166667"
+                ></path>
+            <path
+                d="M4.16666667,4.58333333 C4.5601133,4.05873783 5.17758895,3.75 5.83333333,3.75 C6.48907772,3.75 7.10655337,4.05873783 7.5,4.58333333"
+                ></path>
+        </svg>
+
+        <svg width="22px" height="22px" viewBox="0 0 22 22" role="button" class="yes" aria-label="Yes, this page is helpful">
+            <circle  cx="10" cy="10" r="9.58333333"></circle>
+            <path
+                d="M5.41666667,8.125 C5.53172599,8.125 5.625,8.21827401 5.625,8.33333333 C5.625,8.44839266 5.53172599,8.54166667 5.41666667,8.54166667 C5.30160734,8.54166667 5.20833333,8.44839266 5.20833333,8.33333333 C5.20833333,8.21827401 5.30160734,8.125 5.41666667,8.125"
+                ></path>
+            <path
+                d="M14.5833333,8.125 C14.468274,8.125 14.375,8.21827401 14.375,8.33333333 C14.375,8.44839266 14.468274,8.54166667 14.5833333,8.54166667 C14.6983927,8.54166667 14.7916667,8.44839266 14.7916667,8.33333333 C14.7916667,8.21827401 14.6983927,8.125 14.5833333,8.125"
+                ></path>
+            <path
+                d="M13.2275,12.9166657 C13.4853075,12.9162808 13.7287776,13.035241 13.8869095,13.2388563 C14.0450415,13.4424715 14.1000278,13.7078123 14.0358333,13.9575 C13.562901,15.7999679 11.9021969,17.0882321 10,17.0882321 C8.09780311,17.0882321 6.43709903,15.7999679 5.96416667,13.9575 C5.89997223,13.7078123 5.95495852,13.4424715 6.11309045,13.2388563 C6.27122239,13.035241 6.51469246,12.9162808 6.7725,12.9166657 L13.2275,12.9166657 Z"
+                ></path>
+        </svg>
+    </div>
+
+
+</div></article>
+<aside class="toc sidebar" data-title="Contents"
+  data-levels="2">
+  <div class="toc-menu">
+    <div class="toc-menu-placeholder"></div>
+
+      </div>
+  </aside>  </div>
+</main>
+</div>
+<footer class="footer">
+  <div class="wrapper">
+  <div class="column">
+    <div class="logo-footer"></div>
+    <p>© <span id="footer-copyright-year">2023</span> Neo4j, Inc.<br>
+      <a href="https://neo4j.com/terms/">Terms</a> | <a href="https://neo4j.com/privacy-policy/">Privacy </a> | <a href="https://neo4j.com/sitemap/">Sitemap</a></p>
+    <p>Neo4j<sup>®</sup>, Neo Technology<sup>®</sup>, Cypher<sup>®</sup>, Neo4j<sup>®</sup> Bloom<sup>™</sup> and
+      Neo4j<sup>®</sup> Aura<sup>™</sup> are registered trademarks
+      of Neo4j, Inc. All other marks are owned by their respective companies.</p>
+  </div>
+
+  <div class="column">
+    <h2><a href="https://neo4j.com/contact-us/?ref=footer">Contact Us →</a></h2>
+    <p>US: 1-855-636-4532<br>
+      Sweden +46 171 480 113<br>
+      UK: +44 20 3868 3223<br>
+      France: +33 (0) 1 88 46 13 20<br>
+      <!--Germany: +49 (0)89 26204 6300</p>-->
+    </p>
+  </div>
+  <div class="column links">
+    <h2>Learn</h2>
+    <ul>
+      <li><i class="fa fa-wrench" aria-hidden="true"></i> <a rel="noopener" href="https://neo4j.com/sandbox/?ref=developer-footer">Sandbox</a></li>
+      <li><i class="fa fa-comments-o" aria-hidden="true"></i> <a rel="noopener" href="https://community.neo4j.com?ref=developer-footer" target="_blank">Neo4j Community Site</a></li>
+      <li><i class="fa fa-book" aria-hidden="true"></i> <a rel="noopener" href="https://medium.com/neo4j" target="_blank">Neo4j Developer Blog</a></li>
+      <li><i class="fa fa-youtube" aria-hidden="true"></i> <a rel="noopener" href="https://www.youtube.com/neo4j" target="_blank">Neo4j Videos</a></li>
+      <li><i class="fa fa-graduation-cap" aria-hidden="true"></i> <a rel="noopener" href="https://neo4j.com/graphacademy/?ref=developer-footer">GraphAcademy</a></li>
+      <li><i class="fa fa-flask" aria-hidden="true"></i> <a href="https://neo4j.com/labs/?ref=developer-footer">Neo4j Labs</a></li>
+    </ul>
+  </div>
+  <div class="column links">
+    <h2>Social</h2>
+    <ul>
+      <li><i class="fa fa-twitter" aria-hidden="true"></i> <a rel="noopener" href="https://twitter.com/neo4j" target="_blank">Twitter</a></li>
+      <li><i class="fa fa-meetup" aria-hidden="true"></i> <a rel="noopener" href="https://www.meetup.com/Neo4j-Online-Meetup/" target="_blank">Meetups</a></li>
+      <li><i class="fa fa-github" aria-hidden="true"></i> <a rel="noopener" href="https://github.com/neo4j/neo4j" target="_blank">Github</a></li>
+      <li><i class="fa fa-stack-overflow" aria-hidden="true"></i> <a rel="noopener" href="https://stackoverflow.com/questions/tagged/neo4j" target="_blank">Stack Overflow</a></li>
+
+      <li class="speaker-program"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdEcNnMruES5iwvOVYovmS1D_P1ZL_HdUOitFrwrvruv5PZvA/viewform">Want to Speak?</a></li>
+    </ul>
+  </div>
+</div>
+</footer>
+
+  <script src="../../../../assets/js/vendor/auth0.js"></script>
+  <script src="../../../../assets/js/site.js"></script>
+  <script async src="../../../../assets/js/vendor/highlight.js"></script>
+  <script async src="../../../../assets/js/vendor/image-zoom.js"></script>
+
+
+<div id="neo4j-algolia-search-v2"></div>
+<script src="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/bundle.js"></script>
+<script src="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/polyfill.js"></script>
+<script>window.algoliaSearchOptions = {indexName: "docs",placeholder: "Search Documentation",template: "docs"}</script>  </body>
+</html>

@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1">
+    <meta name="msvalidate.01" content="B5163518CBE4A854B63801277FE5E35C" />
+    <meta name="google-site-verification" content="ucqagxjVuq0lJZeLKs0F5AppzK111lNt3IoxU6mzlJE" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WK23PSS');</script>
+<!-- Hotjar Tracking Code for staging -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3587741,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<!-- End Hotjar Tracking code -->
+    <title>Updating the data - Getting Started</title>
+    <link rel="prev" href="../results/">
+    <link rel="next" href="../large-statements/">
+      <meta name="description" content="Building on the Cypher Basics I guide, this guide covers more introductory concepts of Cypher, Neo4j&#x27;s graph query language. Upon finishing this guide, you should be able to read and write Cypher queries for standard CRUD operations.">
+<link rel="stylesheet" href="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/bundle.css" />
+<link rel="stylesheet" href="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/utilities.min.css" />
+
+    <link rel="preload" href="../../../assets/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font">
+    <link rel="stylesheet" href="../../../assets/css/site.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="https://neo4j.com/wp-content/themes/neo4jweb/favicon.ico" />
+
+
+
+    <meta property="neo:type" content="Docs">
+    <meta property="neo:site" content="Reference Docs">
+
+
+    <meta property="og:site_name" content="Neo4j Graph Data Platform" />
+    <meta property="article:publisher" content="https://www.facebook.com/neo4j.graph.database" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@neo4j" />
+    <meta name="twitter:site" content="@neo4j" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Updating the data - Getting Started" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://dist.neo4j.com/wp-content/uploads/20210423062553/neo4j-social-share-21.png" />
+    <meta property="og:description" content="Building on the Cypher Basics I guide, this guide covers more introductory concepts of Cypher, Neo4j's graph query language. Upon finishing this guide, you should be able to read and write Cypher queries for standard CRUD operations." />
+    <meta property="og:url" content="https://neo4j.com/docs/getting-started/cypher-intro/updating/" />
+    <link rel="shortcut icon" href="https://neo4j.com/wp-content/themes/neo4jweb/favicon.ico" />
+  </head>
+  <body class="article docs">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK23PSS"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script>(function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"mixpanel"!==c&&(d+="."+c);a||(d+=" (stub)");return d};a.people.toString=function(){return a.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
+for(h=0;h<i.length;h++)g(a,i[h]);var j="set set_once union unset remove delete".split(" ");a.get_group=function(){function b(c){d[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));a.push([e,call2])}}for(var d={},e=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<j.length;c++)b(j[c]);return d};b._i.push([e,f,c])};b.__SV=1.2;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?
+MIXPANEL_CUSTOM_LIB_URL:"file:"===f.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
+mixpanel.init("4bfb2414ab973c741b6f067bf06d5575", {batch_requests: true})
+mixpanel.track("Page View", {
+    pathname: window.location.origin + window.location.pathname,
+    search: window.location.search,
+    hash: window.location.hash,
+    referrer: document.referrer,
+})
+</script>
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+
+      <img class="navbar-logo" src="https://dist.neo4j.com/wp-content/uploads/20210422142941/neo4j-logo-2020.svg" alt="Neo4j Docs" />
+      <a href="/docs/" class="navbar-item no-left-padding" aria-label="Docs">
+        Docs
+      </a>
+
+      </div>
+
+      <button class="navbar-search search-button" data-target="topbar-nav" id="search_open_mobile" aria-label="Open Search">
+        <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" class="fill-current float-right" id="searchx" role="button" title="Search Website">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"
+            stroke-linejoin="round">
+            <g transform="translate(-2.000000, -2.000000)" stroke="#a0aec0" stroke-width="1.5">
+              <circle
+                transform="translate(11.389364, 11.388564) rotate(-23.025000) translate(-11.389364, -11.388564) "
+                cx="11.3893642" cy="11.3885639" r="8.056"></circle>
+              <path d="M17.0853333,17.0844444 L23.3333333,23.3333333" ></path>
+            </g>
+          </g>
+        </svg>
+      </button>
+      <button class="navbar-burger" data-target="topbar-nav" aria-label="Mobile Navigation Button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+            <div class="navbar-end">
+
+
+        <div class="navbar-item has-dropdown is-hoverable docs">
+          <a class="navbar-link" href="/docs/">Docs</a>
+          <div class="navbar-dropdown">
+            <div class="navbar-item project">
+              <span class="project-name">Neo4j DBMS</span>
+              <ul class="project-links">
+                <li><a href="/docs/getting-started/current/" class="project-link">Getting Started</a></li>
+                <li><a href="/docs/operations-manual/current/" class="project-link">Operations</a></li>
+                <li><a href="/docs/migration-guide/current/" class="project-link">Migration and Upgrade</a></li>
+                <li><a href="/docs/status-codes/current/" class="project-link">Status Codes</a></li>
+                <li><a href="/docs/java-reference/current/" class="project-link">Java Reference</a></li>
+                <li><a href="/docs/kerberos-add-on/current/" class="project-link">Kerberos Add-on</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <a class="project-name" href="/docs/aura/">Neo4j Aura</a>
+              <ul class="project-links">
+                <li><a class="project-link" href="/docs/aura">Neo4j Aura</a></li>
+                <li><a class="project-link" href="/docs/aura/auradb/">Neo4j AuraDB</a></li>
+                <li><a class="project-link" href="/docs/aura/aurads/">Neo4j AuraDS</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name">Neo4j Tools</span>
+              <ul class="project-links">
+                <li><a href="/docs/bloom-user-guide/current/" class="project-link">Neo4j Bloom</a></li>
+                <li><a href="/docs/browser-manual/current/" class="project-link">Neo4j Browser</a></li>
+                <li><a href="/docs/data-importer/current/" class="project-link">Neo4j Data Importer</a></li>
+                <li><a href="/docs/desktop-manual/current/" class="project-link">Neo4j Desktop</a></li>
+                <li><a href="/docs/ops-manager/current/" class="project-link">Neo4j Ops Manager</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name">Neo4j Graph Data Science</span>
+              <ul class="project-links">
+                <li><a href="/docs/graph-data-science/current/" class="project-link">Neo4j Graph Data Science Library</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name">Cypher Query Language</span>
+              <ul class="project-links">
+                <li><a href="/docs/cypher-manual/current/" class="project-link">Cypher</a></li>
+                <li><a href="/docs/cypher-cheat-sheet/current/" class="project-link">Cypher Cheat Sheet</a></li>
+                <li><a href="/docs/apoc/current/" class="project-link">APOC Library</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name" href="/docs/drivers-apis">Create applications</span>
+              <ul class="project-links">
+                <li><a href="/docs/python-manual/current/" class="project-link">Python Driver</a></li>
+                <li><a href="/docs/go-manual/current/" class="project-link">Go Driver</a></li>
+                <li><a href="/docs/java-manual/current/" class="project-link">Java Driver</a></li>
+                <li><a href="/docs/javascript-manual/current/" class="project-link">JavaScript Driver</a></li>
+                <li><a href="/docs/dotnet-manual/current/" class="project-link">.Net Driver</a></li>
+                <li><a href="/docs/graphql-manual/current/" class="project-link">Neo4j GraphQL Library</a></li>
+                <li><a href="/docs/http-api/current/" class="project-link">HTTP API</a></li>
+                <li><a href="/docs/ogm-manual/current/" class="project-link">OGM Library</a></li>
+                <li><a href="https://docs.spring.io/spring-data/neo4j/docs/current/reference/html/#reference" class="project-link">Spring Data Neo4j</a></li>
+                <li><a href="/docs/spark/" class="project-link">Neo4j Connector for Apache Spark</a></li>
+                <li><a href="/docs/kafka/" class="project-link">Neo4j Connector for Apache Kafka</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable labs">
+          <a class="navbar-link" href="/labs/">Labs</a>
+          <div class="navbar-dropdown">
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/arrows/">arrows.app</a>
+              <ul class="project-links">
+                <li><a href="/labs/arrows/" class="project-link">Details</a></li>
+                <li><a href="https://arrows.app" class="project-link">arrows.app</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/apoc/">APOC Extended</a>
+
+              <ul class="project-links">
+                <li><a href="/labs/apoc/5/" class="project-link">Documentation</a></li>
+                <li><a href="/developer/neo4j-apoc/" class="project-link">Developer Guide</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/halin/">Halin</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/etl-tool/">ETL Tool</a>
+              <ul class="project-links">
+                <li><a href="/labs/etl-tool/" class="project-link">Details</a></li>
+                <li><a href="/labs/etl-tool/1.5.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neo4j-migrations/">Neo4j Migrations</a>
+              <ul class="project-links">
+                <li><a href="/labs/neo4j-migrations/" class="project-link">Details</a></li>
+                <li><a href="/labs/neo4j-migrations/2.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/liquibase/">Neo4j Plugin For Liquibase</a>
+              <ul class="project-links">
+                <li><a href="/labs/liquibase/" class="project-link">Details</a></li>
+                <li><a href="https://github.com/liquibase/liquibase-neo4j" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neosemantics/">Neosemantics</a>
+              <ul class="project-links">
+                <li><a href="/labs/neosemantics/tutorial/" class="project-link">Getting Started</a></li>
+                <li><a href="/labs/neosemantics/4.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neo4j-helm/">Neo4j Helm</a>
+              <ul class="project-links">
+                <li><a href="/labs/neo4j-helm/" class="project-link">Details</a></li>
+                <li><a href="/labs/neo4j-helm/1.0.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neodash/">NeoDash</a>
+              <ul class="project-links">
+                <li><a href="/labs/neodash/" class="project-link">Details</a></li>
+                <li><a href="/labs/neodash/2.1/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neomodel/">neomodel</a>
+              <ul class="project-links">
+                <li><a href="/labs/neomodel/" class="project-link">Details</a></li>
+                <li><a href="https://neomodel.readthedocs.io/en/latest/" target="_blank" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable developer">
+          <a class="navbar-link" href="/developer/resources/">Get Help</a>
+          <div class="navbar-dropdown">
+            <div class="navbar-item project">
+              <a class="project-name" href="https://graphacademy.neo4j.com/?ref=docs" target="_blank">GraphAcademy</a>
+              <ul class="project-links">
+                <li><a class="project-link" href="https://graphacademy.neo4j.com/?ref=docs">Free, Self Paced Training</a></li>
+                <li><a class="project-link" href="https://graphacademy.neo4j.com/certification/?ref=docs" target="_blank">Certification</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <a class="project-name" href="https://dev.neo4j.com/forum" target="_blank">Community Forum</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="https://dev.neo4j.com/chat" target="_blank">Discord Chat</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/developer/kb" target="_blank">Knowledge Base</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="https://medium.com/neo4j" target="_blank">Neo4j Developer Blog</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="https://www.youtube.com/neo4j" target="_blank">Neo4j Videos</a>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-item is-hoverable getting-started-cta">
+          <a class="navbar-link primary" href="https://neo4j.com/cloud/platform/aura-graph-database/?ref=docs-nav-get-started">Get Started Free</a>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-link search-button" href="#search" id="search_open"><svg width="23px" height="23px" viewBox="0 0 23 23"
+              version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              class="fill-current float-right" id="search" role="button" title="Search Website">
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"
+                stroke-linejoin="round">
+                <g transform="translate(-2.000000, -2.000000)" stroke="#a0aec0" stroke-width="1.5">
+                  <circle
+                    transform="translate(11.389364, 11.388564) rotate(-23.025000) translate(-11.389364, -11.388564) "
+                    cx="11.3893642" cy="11.3885639" r="8.056"></circle>
+                  <path d="M17.0853333,17.0844444 L23.3333333,23.3333333" ></path>
+                </g>
+              </g>
+            </svg><span class="navbar-mobile">Search</span></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="getting-started" data-version="">
+  <aside class="nav">
+    <div class="panels">
+      <div class="selectors">
+        
+      </div>
+      <div class="nav-panel-menu is-active" data-panel="menu">
+    <nav class="nav-menu">
+    <ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../">Welcome to Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../get-started-with-neo4j/">Get started with Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../get-started-with-neo4j/graph-database/">What is a graph database?</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../data-modeling/">Model your data for Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-modeling/guide-data-modeling/">Graph modeling guidelines</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-modeling/modeling-designs/">Modeling designs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-modeling/relational-to-graph-modeling/">Modeling: relational to graph</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-modeling/modeling-tips/">Graph modeling tips</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-modeling/graph-model-refactoring/">Graph model refactoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-modeling/data-modeling-tools/">Data modeling tools</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../data-import/">Import your data into Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-import/csv-import/">Importing CSV data into Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-import/json-rest-api-import/">Importing JSON data from a REST API into Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-import/relational-to-graph-import/">Import: RDBMS to graph</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../">Query a Neo4j database</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../cypher-sql/">Comparing Cypher with SQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../patterns/">Patterns</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../patterns-in-practice/">Patterns in practice</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../results/">Getting the correct results</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="./">Updating the data</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../large-statements/">Composing large statements</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../subqueries/">Subqueries in Cypher</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../schema/">Defining a schema</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dates-datetimes-durations/">Dates, datetimes, and durations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../procedures-functions/">How to extend Cypher</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../load-csv/">Tutorial: Import data</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../resources/">Cypher resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../languages-guides/">Connect to Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link nav-item-toggle" href="../../languages-guides/java/java-intro/">Using Neo4j from Java</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../languages-guides/java/spring-data-neo4j/">Spring Data Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../languages-guides/java/quarkus/">Quarkus</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../languages-guides/java/java-frameworks/">Helidon, Micronaut</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../languages-guides/java/neo4j-ogm/">Neo4j - OGM Object Graph Mapper</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../languages-guides/java/java-procedures/">Procedures and Functions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/neo4j-dotnet/">Using Neo4j from .NET</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/neo4j-javascript/">Neo4j from JavaScript</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/neo4j-python/">Using Neo4j from Python</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/neo4j-go/">Using Neo4j from Go</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/integration-tools/integration/">Neo4j Connectors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/community-drivers/">Community-contributed libraries</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../gds/">Data science with Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../graph-visualization/graph-visualization/">Visualize your data in Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../graph-visualization/graph-visualization-tools/">Graph visualization tools</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../appendix/">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link nav-item-toggle" href="../../appendix/graphdb-concepts/">Graph database concepts</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/graphdb-concepts/graphdb-vs-rdbms/">Transition from relational to graph database</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/graphdb-concepts/graphdb-vs-nosql/">Transition from NoSQL to graph database</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../appendix/example-data/">Example datasets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../appendix/getting-started-resources/">Getting started resources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link nav-item-toggle" href="../../appendix/tutorials/tutorials-overview/">Tutorials</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/tutorials/guide-cypher-basics/">Tutorial: Getting Started with Cypher</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/tutorials/guide-build-a-recommendation-engine/">Tutorial: Build a Cypher Recommendation Engine</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/tutorials/guide-import-relational-and-etl/">Tutorial: Import data from a relational database into Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/tutorials/guide-import-desktop-csv/">How-To: Import CSV data with Neo4j Desktop</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+  <div class="toolbar-wrapper">
+    <button class="nav-toggle" aria-label="Toggle Table of Contents"></button>
+    <a href="../../" class="home-link" aria-label="Go to home page"></a>
+    <nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../">Getting Started</a></li>
+    <li><a href="../">
+        Query a Neo4j database
+    </a></li>
+    <li><a href="./">
+        Updating the data
+    </a></li>
+  </ul>
+</nav>
+        <div class="edit-this-page"><a href="https://github.com/neo4j/docs-getting-started/tree/HEAD/modules/ROOT/pages/cypher-intro/updating.adoc">Edit this Page</a></div>
+    </div>
+</div>
+
+  <div class="content">
+<article class="doc">
+<div class="sect-header">
+<h1 class="page">Updating the data</h1>
+</div>
+
+
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Earlier you learned how to represent nodes, relationships, labels, properties, and patterns in Cypher<sup>&reg;</sup>.
+This section adds another level to your knowledge by introducing how to update and delete data with Cypher.</p>
+</div>
+<div class="paragraph">
+<p>While these are the standard CRUD (create, update, and delete) operations, some things function a bit differently in a graph than in other types of databases.
+You will probably recognize some of the similarities and differences as we go along.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cypher-update"><a class="anchor" href="#cypher-update"></a>Updating data with Cypher</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You may already have a node or relationship in the data, but you want to modify its properties.
+You can do this by matching the pattern you want to find and using the <code>SET</code> keyword to add, remove, or update properties.</p>
+</div>
+<div class="paragraph">
+<p>We continue to use the following dataset:</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/people-technologies-graph-arr.svg" alt="people technologies graph arr">
+</div>
+<div class="title">Figure 1. Graph: people, companies they work at, and technologies they like</div>
+</div>
+<div class="paragraph">
+<p>To create the aforementioned graph, run the Cypher query:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">CREATE (diana:Person {name: "Diana"})
+CREATE (melissa:Person {name: "Melissa", twitter: "@melissa"})
+CREATE (dan:Person {name: "Dan", twitter: "@dan", yearsExperience: 6})
+CREATE (sally:Person {name: "Sally", yearsExperience: 4})
+CREATE (john:Person {name: "John", yearsExperience: 5})
+CREATE (jennifer:Person {name: "Jennifer", twitter: "@jennifer", yearsExperience: 5})
+CREATE (joe:Person {name: "Joe"})
+CREATE (mark:Person {name: "Mark", twitter: "@mark"})
+CREATE (ann:Person {name: "Ann"})
+CREATE (xyz:Company {name: "XYZ"})
+CREATE (x:Company {name: "Company X"})
+CREATE (a:Company {name: "Company A"})
+CREATE (Neo4j:Company {name: "Neo4j"})
+CREATE (abc:Company {name: "ABC"})
+CREATE (query:Technology {type: "Query Languages"})
+CREATE (etl:Technology {type: "Data ETL"})
+CREATE (integrations:Technology {type: "Integrations"})
+CREATE (graphs:Technology {type: "Graphs"})
+CREATE (dev:Technology {type: "Application Development"})
+CREATE (java:Technology {type: "Java"})
+CREATE (diana)-[:LIKES]-&gt;(query)
+CREATE (melissa)-[:LIKES]-&gt;(query)
+CREATE (dan)-[:LIKES]-&gt;(etl)&lt;-[:LIKES]-(melissa)
+CREATE (xyz)&lt;-[:WORKS_FOR]-(sally)-[:LIKES]-&gt;(integrations)&lt;-[:LIKES]-(dan)
+CREATE (sally)&lt;-[:IS_FRIENDS_WITH]-(john)-[:LIKES]-&gt;(java)
+CREATE (john)&lt;-[:IS_FRIENDS_WITH]-(jennifer)-[:LIKES]-&gt;(java)
+CREATE (john)-[:WORKS_FOR]-&gt;(xyz)
+CREATE (sally)&lt;-[:IS_FRIENDS_WITH]-(jennifer)-[:IS_FRIENDS_WITH]-&gt;(melissa)
+CREATE (joe)-[:LIKES]-&gt;(query)
+CREATE (x)&lt;-[:WORKS_FOR]-(diana)&lt;-[:IS_FRIENDS_WITH]-(joe)-[:IS_FRIENDS_WITH]-&gt;(mark)-[:LIKES]-&gt;(graphs)&lt;-[:LIKES]-(jennifer)-[:WORKS_FOR]-&gt;(Neo4j)
+CREATE (ann)&lt;-[:IS_FRIENDS_WITH]-(jennifer)-[:IS_FRIENDS_WITH]-&gt;(mark)
+CREATE (john)-[:LIKES]-&gt;(dev)&lt;-[:LIKES]-(ann)-[:IS_FRIENDS_WITH]-&gt;(dan)-[:WORKS_FOR]-&gt;(abc)
+CREATE (ann)-[:WORKS_FOR]-&gt;(abc)
+CREATE (a)&lt;-[:WORKS_FOR]-(melissa)-[:LIKES]-&gt;(graphs)&lt;-[:LIKES]-(diana)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Using the above example dataset thus far, you could update Jennifer&#8217;s node to add her birthdate.
+The next Cypher statement shows how to do this.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, you need to find the existing node for Jennifer.</p>
+</li>
+<li>
+<p>Next, use <code>SET</code> to create the new property (with syntax <code>variable.property</code>) and set its value.</p>
+</li>
+<li>
+<p>Finally, you can return Jennifer&#8217;s node to ensure that the information was updated correctly.</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MATCH (p:Person {name: 'Jennifer'})
+SET p.birthdate = date('1980-01-01')
+RETURN p</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Query result:</strong></p>
+</div>
+<div class="listingblock queryresult">
+<div class="content">
+<pre>Set Properties: 1
+Rows: 1
+
++------------------------------------------------------+
+| p                                                    |
++------------------------------------------------------+
+|(Person: {birthdate: '1980-01-01', name: 'Jennifer'}) |
++------------------------------------------------------+</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For more information on using <code>date()</code> and other temporal functions, visit the <a href="https://neo4j.com/docs/cypher-manual/current/functions/temporal/" target="_blank" rel="noopener">Cypher manual &#8594; Temporal functions</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you want to change Jennifer&#8217;s birthdate, you can use the same query above to find Jennifer&#8217;s node again and put a different date in the <code>SET</code> clause.</p>
+</div>
+<div class="paragraph">
+<p>You are able also update Jennifer&#8217;s <code>WORKS_FOR</code> relationship with the <code>Company</code> node to include the year that she started working there.
+To do this, you can use similar syntax as above for updating nodes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MATCH (:Person {name: 'Jennifer'})-[rel:WORKS_FOR]-(:Company {name: 'Neo4j'})
+SET rel.startYear = date({year: 2018})
+RETURN rel</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Query result:</strong></p>
+</div>
+<div class="listingblock queryresult">
+<div class="content">
+<pre>Set Properties: 1
+Rows: 1
+
++-----------------------------------------+
+| rel                                     |
++-----------------------------------------+
+| [:WORKS_FOR {startYear: '2018-01-01'}]  |
++-----------------------------------------+</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you want to return a graph view on the above query, you can add variables to the nodes for <code>p:Person</code> and <code>c:Company</code> and write the return line as <code>RETURN p, rel, c</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cypher-delete"><a class="anchor" href="#cypher-delete"></a>Deleting data with Cypher</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Another operation to cover is how to delete data in Cypher.
+For this operation, Cypher uses the <code>DELETE</code> keyword for deleting nodes and relationships.
+It is very similar to deleting data in other languages like SQL, with one exception.</p>
+</div>
+<div class="paragraph">
+<p>Because Neo4j is ACID-compliant, you cannot delete a node if it still has relationships.
+If you could do that, then you might end up with a relationship pointing to nothing and an incomplete graph.</p>
+</div>
+<div class="sect2">
+<h3 id="_delete_a_relationship"><a class="anchor" href="#_delete_a_relationship"></a>Delete a relationship</h3>
+<div class="paragraph">
+<p>To delete a relationship, you need to find the start and end nodes for the relationship you want to delete and then use the <code>DELETE</code> keyword, as shown in the code block below.
+Let us go ahead and delete the <code>IS_FRIENDS_WITH</code> relationship between Jennifer and Mark for now.
+We will add this relationship back in a later exercise.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MATCH (j:Person {name: 'Jennifer'})-[r:IS_FRIENDS_WITH]-&gt;(m:Person {name: 'Mark'})
+DELETE r</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Query result:</strong></p>
+</div>
+<div class="listingblock queryresult">
+<div class="content">
+<pre>+-----------------------------------------+
+| Deleted Relationships: 1                |
+| Rows: 0                                 |
++-----------------------------------------+</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_a_node"><a class="anchor" href="#_delete_a_node"></a>Delete a node</h3>
+<div class="paragraph">
+<p>To delete a node that does not have any relationships, you need to find the node you want to delete and then use the <code>DELETE</code> keyword, just as you did for the relationship above.
+You can delete Mark&#8217;s node for now and bring him back later.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MATCH (m:Person {name: 'Mark'})
+DELETE m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Query result:</strong></p>
+</div>
+<div class="listingblock queryresult">
+<div class="content">
+<pre>+-----------------------------------------+
+| Deleted Nodes: 1                        |
+| Rows: 0                                 |
++-----------------------------------------+</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you have created an empty node by mistake and you need to delete it, you can use the following Cypher statement to do it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MATCH (n)
+WHERE id(n) = 5
+DETACH DELETE n</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This statement deletes not only a node but also all relationships it has.
+To run the statement, you should know a node&#8217;s internal ID.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_a_node_and_its_relationship"><a class="anchor" href="#_delete_a_node_and_its_relationship"></a>Delete a node and its relationship</h3>
+<div class="paragraph">
+<p>Instead of running the last two queries to delete the <code>IS_FRIENDS_WITH</code> relationship and the <code>Person</code> node for Mark, you can actually run a single statement to delete the node and its relationship at the same time.
+As it was mentioned above, Neo4j is ACID-compliant so it doesn&#8217;t allow to delete a node if it still has relationships.
+Using the <code>DETACH DELETE</code> syntax tells Cypher to delete any relationships the node has, as well as remove the node itself.</p>
+</div>
+<div class="paragraph">
+<p>The statement would look like the code below.
+First, you find Mark&#8217;s node in the database.
+Then, the <code>DETACH DELETE</code> line removes any existing relationships <code>Mark</code> node has before also deleting the node.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MATCH (m:Person {name: 'Mark'})
+DETACH DELETE m</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_properties"><a class="anchor" href="#_delete_properties"></a>Delete properties</h3>
+<div class="paragraph">
+<p>You can also remove properties, but instead of using the <code>DELETE</code> keyword, you can use a couple of other approaches.</p>
+</div>
+<div class="paragraph">
+<p>The first option is to use <code>REMOVE</code> on the property.
+This tells Neo4j that you want to remove the property from the node entirely and no longer store it.</p>
+</div>
+<div class="paragraph">
+<p>The second option is to use the <code>SET</code> keyword from earlier to set the property value to <code>null</code>.
+Unlike other database models, Neo4j does not store null values.
+Instead, it only stores properties and values that are meaningful to your data.
+This means that you can have different types and amounts of properties on various nodes and relationships in your graph.</p>
+</div>
+<div class="paragraph">
+<p>To show you both options, let us look at the code for each.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//delete property using REMOVE keyword
+MATCH (n:Person {name: 'Jennifer'})
+REMOVE n.birthdate
+
+//delete property with SET to null value
+MATCH (n:Person {name: 'Jennifer'})
+SET n.birthdate = null</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Query result:</strong></p>
+</div>
+<div class="listingblock queryresult">
+<div class="content">
+<pre>+-----------------------------------------+
+| Set Properties: 1                       |
+| Rows: 0                                 |
++-----------------------------------------+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cypher-merge"><a class="anchor" href="#cypher-merge"></a>Avoiding duplicate data using <em>MERGE</em></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It was briefly mentioned <a href="../patterns-in-practice/#cypher-intro-patterns-in-practice-completing-patterns/" class="xref page">earlier</a> that there are some ways in Cypher to avoid creating duplicate data.
+One of those ways is using the <code>MERGE</code> keyword.
+<code>MERGE</code> does a "select-or-insert" operation that first checks if the data exists in the database.
+If it exists, then Cypher returns it as is or makes any updates you specify on the existing node or relationship.
+If the data does not exist, then Cypher will create it with the information you specify.</p>
+</div>
+<div class="sect2">
+<h3 id="_using_merge_on_a_node"><a class="anchor" href="#_using_merge_on_a_node"></a>Using <em>MERGE</em> on a node</h3>
+<div class="paragraph">
+<p>To start, let us look at an example of this by adding Mark back to our database using the query below.
+You can use <code>MERGE</code> to ensure that Cypher checks the database for an existing node for Mark.
+Since you removed Mark&#8217;s node in the previous examples, Cypher will not find an existing match and will create the node new with the <code>name</code> property set to 'Mark'.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MERGE (mark:Person {name: 'Mark'})
+RETURN mark</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Query result:</strong></p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/cypher_graph_mergeFriend-arr.svg" alt="cypher graph mergeFriend arr" width="200">
+</div>
+</div>
+<div class="paragraph">
+<p>If you run the same statement again, Cypher will find an existing node this time that has the <code>name</code> property set to <code>Mark</code>, so it will return the matched node without any changes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_using_merge_on_a_relationship"><a class="anchor" href="#_using_merge_on_a_relationship"></a>Using <em>MERGE</em> on a relationship</h3>
+<div class="paragraph">
+<p>Just like you use <code>MERGE</code> to find or create a node in Cypher, you can do the same thing to find or create a relationship.
+Let&#8217;s re-create the <code>IS_FRIENDS_WITH</code> relationship between Mark and Jennifer that we had in a previous example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MATCH (j:Person {name: 'Jennifer'})
+MATCH (m:Person {name: 'Mark'})
+MERGE (j)-[r:IS_FRIENDS_WITH]-&gt;(m)
+RETURN j, r, m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Notice that here <code>MATCH</code> is used to find both Mark&#8217;s node and Jennifer&#8217;s node before we use <code>MERGE</code> to find or create the relationship between them.</p>
+</div>
+<div class="paragraph">
+<p>Why do we not use a single statement?</p>
+</div>
+<div class="paragraph">
+<p><code>MERGE</code> looks for an entire pattern that you specify to see whether to return an existing one or create it new.
+If the entire pattern (nodes, relationships, and any specified properties) does not exist, Cypher creates it.</p>
+</div>
+<div class="paragraph">
+<p>Cypher never produces a partial mix of matching and creating within a pattern.
+To avoid a mix of match and create, you need to match any existing elements of your pattern first before doing a merge on any elements you might want to create, just as we did in the statement above.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/cypher_graph_mergeFriendRel-arr.svg" alt="cypher graph mergeFriendRel arr" width="600">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Just for reference, the Cypher statement that causes duplicates is below.
+Since this pattern (<code>Jennifer IS_FRIENDS_WITH Mark</code>) does not exist in the database, Cypher creates the entire pattern new&#8201;&#8212;&#8201;both nodes, as well as the relationship between them.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">//this statement will create duplicate nodes for Mark and Jennifer
+MERGE (j:Person {name: 'Jennifer'})-[r:IS_FRIENDS_WITH]-&gt;(m:Person {name: 'Mark'})
+RETURN j, r, m</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_handling_merge_criteria"><a class="anchor" href="#_handling_merge_criteria"></a>Handling <em>MERGE</em> criteria</h3>
+<div class="paragraph">
+<p>Perhaps you want to use <code>MERGE</code> to ensure you do not create duplicates, but you want to initialize certain properties if the pattern is created and update other properties if it is only matched.
+In this case, you can use <code>ON CREATE</code> or <code>ON MATCH</code> with the <code>SET</code> keyword to handle these situations.</p>
+</div>
+<div class="paragraph">
+<p>Let us look at an example.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">MERGE (m:Person {name: 'Mark'})-[r:IS_FRIENDS_WITH]-(j:Person {name:'Jennifer'})
+  ON CREATE SET r.since = date('2018-03-01')
+  ON MATCH SET r.updated = date()
+RETURN m, r, j</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cypher-resources"><a class="anchor" href="#cypher-resources"></a>Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://neo4j.com/docs/cypher-manual/current/clauses/create/" target="_blank" rel="noopener">Neo4j Cypher Manual: CREATE</a></p>
+</li>
+<li>
+<p><a href="https://neo4j.com/docs/cypher-manual/current/clauses/set/" target="_blank" rel="noopener">Neo4j Cypher Manual: SET</a></p>
+</li>
+<li>
+<p><a href="https://neo4j.com/docs/cypher-manual/current/clauses/remove/" target="_blank" rel="noopener">Neo4j Cypher Manual: REMOVE</a></p>
+</li>
+<li>
+<p><a href="https://neo4j.com/docs/cypher-manual/current/clauses/delete/" target="_blank" rel="noopener">Neo4j Cypher Manual: DELETE</a></p>
+</li>
+<li>
+<p><a href="https://neo4j.com/docs/cypher-manual/current/clauses/merge/" target="_blank" rel="noopener">Neo4j Cypher Manual: MERGE</a></p>
+</li>
+<li>
+<p><a href="https://neo4j.com/docs/cypher-manual/current/clauses/merge/#query-merge-on-create-on-match" target="_blank" rel="noopener">Neo4j Cypher Manual: ON CREATE/ON MATCH</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../results/">Getting the correct results</a></span>
+
+  <span class="next"><a href="../large-statements/">Composing large statements</a></span>
+</nav>
+    <div class="feedback">
+    <div class="header question">
+        <p><strong>Was this page helpful?</strong></p>
+
+        <svg width="22px" height="22px" viewBox="0 0 22 22" role="button" class="no" aria-label="No, this page isn't helpful">
+            <path
+                d="M6.25,15.8333333 C6.25,13.7622655 7.92893219,12.0833333 10,12.0833333 C12.0710678,12.0833333 13.75,13.7622655 13.75,15.8333333"
+                ></path>
+            <circle  cx="10" cy="10" r="9.58333333"></circle>
+            <path
+                d="M12.5,4.58333333 C12.8934466,4.05873783 13.5109223,3.75 14.1666667,3.75 C14.822411,3.75 15.4398867,4.05873783 15.8333333,4.58333333"
+                ></path>
+            <line x1="4.58333333" y1="7.91666667" x2="7.08333333" y2="7.91666667" ></line>
+            <path
+                d="M7.08333333,8.54166667 C6.96827401,8.54166667 6.875,8.44839266 6.875,8.33333333 C6.875,8.21827401 6.96827401,8.125 7.08333333,8.125 C7.19839266,8.125 7.29166667,8.21827401 7.29166667,8.33333333 C7.29166667,8.44839266 7.19839266,8.54166667 7.08333333,8.54166667"
+                ></path>
+            <line x1="12.9166667" y1="7.91666667" x2="15.4166667" y2="7.91666667" ></line>
+            <path
+                d="M15.4166667,8.54166667 C15.3016073,8.54166667 15.2083333,8.44839266 15.2083333,8.33333333 C15.2083333,8.21827401 15.3016073,8.125 15.4166667,8.125 C15.531726,8.125 15.625,8.21827401 15.625,8.33333333 C15.625,8.44839266 15.531726,8.54166667 15.4166667,8.54166667"
+                ></path>
+            <path
+                d="M4.16666667,4.58333333 C4.5601133,4.05873783 5.17758895,3.75 5.83333333,3.75 C6.48907772,3.75 7.10655337,4.05873783 7.5,4.58333333"
+                ></path>
+        </svg>
+
+        <svg width="22px" height="22px" viewBox="0 0 22 22" role="button" class="yes" aria-label="Yes, this page is helpful">
+            <circle  cx="10" cy="10" r="9.58333333"></circle>
+            <path
+                d="M5.41666667,8.125 C5.53172599,8.125 5.625,8.21827401 5.625,8.33333333 C5.625,8.44839266 5.53172599,8.54166667 5.41666667,8.54166667 C5.30160734,8.54166667 5.20833333,8.44839266 5.20833333,8.33333333 C5.20833333,8.21827401 5.30160734,8.125 5.41666667,8.125"
+                ></path>
+            <path
+                d="M14.5833333,8.125 C14.468274,8.125 14.375,8.21827401 14.375,8.33333333 C14.375,8.44839266 14.468274,8.54166667 14.5833333,8.54166667 C14.6983927,8.54166667 14.7916667,8.44839266 14.7916667,8.33333333 C14.7916667,8.21827401 14.6983927,8.125 14.5833333,8.125"
+                ></path>
+            <path
+                d="M13.2275,12.9166657 C13.4853075,12.9162808 13.7287776,13.035241 13.8869095,13.2388563 C14.0450415,13.4424715 14.1000278,13.7078123 14.0358333,13.9575 C13.562901,15.7999679 11.9021969,17.0882321 10,17.0882321 C8.09780311,17.0882321 6.43709903,15.7999679 5.96416667,13.9575 C5.89997223,13.7078123 5.95495852,13.4424715 6.11309045,13.2388563 C6.27122239,13.035241 6.51469246,12.9162808 6.7725,12.9166657 L13.2275,12.9166657 Z"
+                ></path>
+        </svg>
+    </div>
+
+
+</div></article>
+<aside class="toc sidebar" data-title="Contents"
+  data-levels="2">
+  <div class="toc-menu">
+    <div class="toc-menu-placeholder"></div>
+
+    <div class="toc-ad">
+    <div class="toc-ad-overline">
+        <a href="https://graphacademy.neo4j.com/?ref=guides" target="_blank">
+
+        Neo4j GraphAcademy
+
+        </a>
+    </div>
+
+    <a href="https://graphacademy.neo4j.com/?ref=guides" target="_blank">
+
+        <h2 class="toc-ad-title">
+            Cypher Fundamentals
+        </h2>
+
+        <p class="toc-ad-description">Learn Cypher in this free, hands-on course</p>
+
+        <div class="toc-ad-underline button">
+            Learn more
+        </div>
+    </a>
+</div>
+  </div>
+  <div class="newsletter">
+    <h2>This Week in Neo4j</h2>
+    <p>Subscribe now to get weekly Neo4j Developer news directly to your
+        inbox</p>
+
+    <script src="//app-ab10.marketo.com/js/forms2/js/forms2.min.js"></script>
+    <form id="mktoForm_2374"></form>
+    <script type="text/javascript">
+        MktoForms2.loadForm("//app-ab10.marketo.com", "710-RRC-335", 2374, function (form) {
+            // Add an onSuccess handler
+            form.onSuccess(function (values, followUpUrl) {
+                var pp = document.getElementById("pp-text")
+                if (pp) {
+                    pp.style.display = "none";
+                }
+                document.getElementById("thks-subs").innerHTML = "<p class='byline'>Thank you! Email Node added.</p><p class='byline'>Receive more news and events: <a href='https://neo4j.com/manage-subscriptions/'>manage your subscriptions.<a/></p>";
+                form.getFormElem().hide();
+                return false;
+            });
+        });
+    </script>
+</div>
+</aside>  </div>
+</main>
+</div>
+<footer class="footer">
+  <div class="wrapper">
+  <div class="column">
+    <div class="logo-footer"></div>
+    <p>© <span id="footer-copyright-year">2023</span> Neo4j, Inc.<br>
+      <a href="https://neo4j.com/terms/">Terms</a> | <a href="https://neo4j.com/privacy-policy/">Privacy </a> | <a href="https://neo4j.com/sitemap/">Sitemap</a></p>
+    <p>Neo4j<sup>®</sup>, Neo Technology<sup>®</sup>, Cypher<sup>®</sup>, Neo4j<sup>®</sup> Bloom<sup>™</sup> and
+      Neo4j<sup>®</sup> Aura<sup>™</sup> are registered trademarks
+      of Neo4j, Inc. All other marks are owned by their respective companies.</p>
+  </div>
+
+  <div class="column">
+    <h2><a href="https://neo4j.com/contact-us/?ref=footer">Contact Us →</a></h2>
+    <p>US: 1-855-636-4532<br>
+      Sweden +46 171 480 113<br>
+      UK: +44 20 3868 3223<br>
+      France: +33 (0) 1 88 46 13 20<br>
+      <!--Germany: +49 (0)89 26204 6300</p>-->
+    </p>
+  </div>
+  <div class="column links">
+    <h2>Learn</h2>
+    <ul>
+      <li><i class="fa fa-wrench" aria-hidden="true"></i> <a rel="noopener" href="https://neo4j.com/sandbox/?ref=developer-footer">Sandbox</a></li>
+      <li><i class="fa fa-comments-o" aria-hidden="true"></i> <a rel="noopener" href="https://community.neo4j.com?ref=developer-footer" target="_blank">Neo4j Community Site</a></li>
+      <li><i class="fa fa-book" aria-hidden="true"></i> <a rel="noopener" href="https://medium.com/neo4j" target="_blank">Neo4j Developer Blog</a></li>
+      <li><i class="fa fa-youtube" aria-hidden="true"></i> <a rel="noopener" href="https://www.youtube.com/neo4j" target="_blank">Neo4j Videos</a></li>
+      <li><i class="fa fa-graduation-cap" aria-hidden="true"></i> <a rel="noopener" href="https://neo4j.com/graphacademy/?ref=developer-footer">GraphAcademy</a></li>
+      <li><i class="fa fa-flask" aria-hidden="true"></i> <a href="https://neo4j.com/labs/?ref=developer-footer">Neo4j Labs</a></li>
+    </ul>
+  </div>
+  <div class="column links">
+    <h2>Social</h2>
+    <ul>
+      <li><i class="fa fa-twitter" aria-hidden="true"></i> <a rel="noopener" href="https://twitter.com/neo4j" target="_blank">Twitter</a></li>
+      <li><i class="fa fa-meetup" aria-hidden="true"></i> <a rel="noopener" href="https://www.meetup.com/Neo4j-Online-Meetup/" target="_blank">Meetups</a></li>
+      <li><i class="fa fa-github" aria-hidden="true"></i> <a rel="noopener" href="https://github.com/neo4j/neo4j" target="_blank">Github</a></li>
+      <li><i class="fa fa-stack-overflow" aria-hidden="true"></i> <a rel="noopener" href="https://stackoverflow.com/questions/tagged/neo4j" target="_blank">Stack Overflow</a></li>
+
+      <li class="speaker-program"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdEcNnMruES5iwvOVYovmS1D_P1ZL_HdUOitFrwrvruv5PZvA/viewform">Want to Speak?</a></li>
+    </ul>
+  </div>
+</div>
+</footer>
+
+  <script src="../../../assets/js/vendor/auth0.js"></script>
+  <script src="../../../assets/js/site.js"></script>
+  <script async src="../../../assets/js/vendor/highlight.js"></script>
+  <script async src="../../../assets/js/vendor/image-zoom.js"></script>
+
+
+<div id="neo4j-algolia-search-v2"></div>
+<script src="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/bundle.js"></script>
+<script src="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/polyfill.js"></script>
+<script>window.algoliaSearchOptions = {indexName: "docs",placeholder: "Search Documentation",template: "docs"}</script>  </body>
+</html>

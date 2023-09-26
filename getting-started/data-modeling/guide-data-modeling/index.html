@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, minimum-scale=1">
+    <meta name="msvalidate.01" content="B5163518CBE4A854B63801277FE5E35C" />
+    <meta name="google-site-verification" content="ucqagxjVuq0lJZeLKs0F5AppzK111lNt3IoxU6mzlJE" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WK23PSS');</script>
+<!-- Hotjar Tracking Code for staging -->
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3587741,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<!-- End Hotjar Tracking code -->
+    <title>Graph modeling guidelines - Getting Started</title>
+    <link rel="prev" href="../">
+    <link rel="next" href="../modeling-designs/">
+      <meta name="description" content="This guide is designed to walk you through the graph data modeling lifecycle of Neo4j. You will be introduced to the basic process of designing a graph data model that can answer a wide range of business questions across a variety of domains.">
+<link rel="stylesheet" href="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/bundle.css" />
+<link rel="stylesheet" href="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/utilities.min.css" />
+
+    <link rel="preload" href="../../../assets/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font">
+    <link rel="stylesheet" href="../../../assets/css/site.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="https://neo4j.com/wp-content/themes/neo4jweb/favicon.ico" />
+
+
+
+    <meta property="neo:type" content="Docs">
+    <meta property="neo:site" content="Reference Docs">
+
+
+    <meta property="og:site_name" content="Neo4j Graph Data Platform" />
+    <meta property="article:publisher" content="https://www.facebook.com/neo4j.graph.database" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:creator" content="@neo4j" />
+    <meta name="twitter:site" content="@neo4j" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Graph modeling guidelines - Getting Started" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://dist.neo4j.com/wp-content/uploads/20210423062553/neo4j-social-share-21.png" />
+    <meta property="og:description" content="This guide is designed to walk you through the graph data modeling lifecycle of Neo4j. You will be introduced to the basic process of designing a graph data model that can answer a wide range of business questions across a variety of domains." />
+    <meta property="og:url" content="https://neo4j.com/docs/getting-started/data-modeling/guide-data-modeling/" />
+    <link rel="shortcut icon" href="https://neo4j.com/wp-content/themes/neo4jweb/favicon.ico" />
+  </head>
+  <body class="article docs">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WK23PSS"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<script>(function(f,b){if(!b.__SV){var e,g,i,h;window.mixpanel=b;b._i=[];b.init=function(e,f,c){function g(a,d){var b=d.split(".");2==b.length&&(a=a[b[0]],d=b[1]);a[d]=function(){a.push([d].concat(Array.prototype.slice.call(arguments,0)))}}var a=b;"undefined"!==typeof c?a=b[c]=[]:c="mixpanel";a.people=a.people||[];a.toString=function(a){var d="mixpanel";"mixpanel"!==c&&(d+="."+c);a||(d+=" (stub)");return d};a.people.toString=function(){return a.toString(1)+".people (stub)"};i="disable time_event track track_pageview track_links track_forms track_with_groups add_group set_group remove_group register register_once alias unregister identify name_tag set_config reset opt_in_tracking opt_out_tracking has_opted_in_tracking has_opted_out_tracking clear_opt_in_out_tracking start_batch_senders people.set people.set_once people.unset people.increment people.append people.union people.track_charge people.clear_charges people.delete_user people.remove".split(" ");
+for(h=0;h<i.length;h++)g(a,i[h]);var j="set set_once union unset remove delete".split(" ");a.get_group=function(){function b(c){d[c]=function(){call2_args=arguments;call2=[c].concat(Array.prototype.slice.call(call2_args,0));a.push([e,call2])}}for(var d={},e=["get_group"].concat(Array.prototype.slice.call(arguments,0)),c=0;c<j.length;c++)b(j[c]);return d};b._i.push([e,f,c])};b.__SV=1.2;e=f.createElement("script");e.type="text/javascript";e.async=!0;e.src="undefined"!==typeof MIXPANEL_CUSTOM_LIB_URL?
+MIXPANEL_CUSTOM_LIB_URL:"file:"===f.location.protocol&&"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js".match(/^\/\//)?"https://cdn.mxpnl.com/libs/mixpanel-2-latest.min.js":"//cdn.mxpnl.com/libs/mixpanel-2-latest.min.js";g=f.getElementsByTagName("script")[0];g.parentNode.insertBefore(e,g)}})(document,window.mixpanel||[]);
+mixpanel.init("4bfb2414ab973c741b6f067bf06d5575", {batch_requests: true})
+mixpanel.track("Page View", {
+    pathname: window.location.origin + window.location.pathname,
+    search: window.location.search,
+    hash: window.location.hash,
+    referrer: document.referrer,
+})
+</script>
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+
+      <img class="navbar-logo" src="https://dist.neo4j.com/wp-content/uploads/20210422142941/neo4j-logo-2020.svg" alt="Neo4j Docs" />
+      <a href="/docs/" class="navbar-item no-left-padding" aria-label="Docs">
+        Docs
+      </a>
+
+      </div>
+
+      <button class="navbar-search search-button" data-target="topbar-nav" id="search_open_mobile" aria-label="Open Search">
+        <svg width="23px" height="23px" viewBox="0 0 23 23" version="1.1" class="fill-current float-right" id="searchx" role="button" title="Search Website">
+          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"
+            stroke-linejoin="round">
+            <g transform="translate(-2.000000, -2.000000)" stroke="#a0aec0" stroke-width="1.5">
+              <circle
+                transform="translate(11.389364, 11.388564) rotate(-23.025000) translate(-11.389364, -11.388564) "
+                cx="11.3893642" cy="11.3885639" r="8.056"></circle>
+              <path d="M17.0853333,17.0844444 L23.3333333,23.3333333" ></path>
+            </g>
+          </g>
+        </svg>
+      </button>
+      <button class="navbar-burger" data-target="topbar-nav" aria-label="Mobile Navigation Button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+            <div class="navbar-end">
+
+
+        <div class="navbar-item has-dropdown is-hoverable docs">
+          <a class="navbar-link" href="/docs/">Docs</a>
+          <div class="navbar-dropdown">
+            <div class="navbar-item project">
+              <span class="project-name">Neo4j DBMS</span>
+              <ul class="project-links">
+                <li><a href="/docs/getting-started/current/" class="project-link">Getting Started</a></li>
+                <li><a href="/docs/operations-manual/current/" class="project-link">Operations</a></li>
+                <li><a href="/docs/migration-guide/current/" class="project-link">Migration and Upgrade</a></li>
+                <li><a href="/docs/status-codes/current/" class="project-link">Status Codes</a></li>
+                <li><a href="/docs/java-reference/current/" class="project-link">Java Reference</a></li>
+                <li><a href="/docs/kerberos-add-on/current/" class="project-link">Kerberos Add-on</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <a class="project-name" href="/docs/aura/">Neo4j Aura</a>
+              <ul class="project-links">
+                <li><a class="project-link" href="/docs/aura">Neo4j Aura</a></li>
+                <li><a class="project-link" href="/docs/aura/auradb/">Neo4j AuraDB</a></li>
+                <li><a class="project-link" href="/docs/aura/aurads/">Neo4j AuraDS</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name">Neo4j Tools</span>
+              <ul class="project-links">
+                <li><a href="/docs/bloom-user-guide/current/" class="project-link">Neo4j Bloom</a></li>
+                <li><a href="/docs/browser-manual/current/" class="project-link">Neo4j Browser</a></li>
+                <li><a href="/docs/data-importer/current/" class="project-link">Neo4j Data Importer</a></li>
+                <li><a href="/docs/desktop-manual/current/" class="project-link">Neo4j Desktop</a></li>
+                <li><a href="/docs/ops-manager/current/" class="project-link">Neo4j Ops Manager</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name">Neo4j Graph Data Science</span>
+              <ul class="project-links">
+                <li><a href="/docs/graph-data-science/current/" class="project-link">Neo4j Graph Data Science Library</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name">Cypher Query Language</span>
+              <ul class="project-links">
+                <li><a href="/docs/cypher-manual/current/" class="project-link">Cypher</a></li>
+                <li><a href="/docs/cypher-cheat-sheet/current/" class="project-link">Cypher Cheat Sheet</a></li>
+                <li><a href="/docs/apoc/current/" class="project-link">APOC Library</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <span class="project-name" href="/docs/drivers-apis">Create applications</span>
+              <ul class="project-links">
+                <li><a href="/docs/python-manual/current/" class="project-link">Python Driver</a></li>
+                <li><a href="/docs/go-manual/current/" class="project-link">Go Driver</a></li>
+                <li><a href="/docs/java-manual/current/" class="project-link">Java Driver</a></li>
+                <li><a href="/docs/javascript-manual/current/" class="project-link">JavaScript Driver</a></li>
+                <li><a href="/docs/dotnet-manual/current/" class="project-link">.Net Driver</a></li>
+                <li><a href="/docs/graphql-manual/current/" class="project-link">Neo4j GraphQL Library</a></li>
+                <li><a href="/docs/http-api/current/" class="project-link">HTTP API</a></li>
+                <li><a href="/docs/ogm-manual/current/" class="project-link">OGM Library</a></li>
+                <li><a href="https://docs.spring.io/spring-data/neo4j/docs/current/reference/html/#reference" class="project-link">Spring Data Neo4j</a></li>
+                <li><a href="/docs/spark/" class="project-link">Neo4j Connector for Apache Spark</a></li>
+                <li><a href="/docs/kafka/" class="project-link">Neo4j Connector for Apache Kafka</a></li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable labs">
+          <a class="navbar-link" href="/labs/">Labs</a>
+          <div class="navbar-dropdown">
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/arrows/">arrows.app</a>
+              <ul class="project-links">
+                <li><a href="/labs/arrows/" class="project-link">Details</a></li>
+                <li><a href="https://arrows.app" class="project-link">arrows.app</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/apoc/">APOC Extended</a>
+
+              <ul class="project-links">
+                <li><a href="/labs/apoc/5/" class="project-link">Documentation</a></li>
+                <li><a href="/developer/neo4j-apoc/" class="project-link">Developer Guide</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/halin/">Halin</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/etl-tool/">ETL Tool</a>
+              <ul class="project-links">
+                <li><a href="/labs/etl-tool/" class="project-link">Details</a></li>
+                <li><a href="/labs/etl-tool/1.5.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neo4j-migrations/">Neo4j Migrations</a>
+              <ul class="project-links">
+                <li><a href="/labs/neo4j-migrations/" class="project-link">Details</a></li>
+                <li><a href="/labs/neo4j-migrations/2.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/liquibase/">Neo4j Plugin For Liquibase</a>
+              <ul class="project-links">
+                <li><a href="/labs/liquibase/" class="project-link">Details</a></li>
+                <li><a href="https://github.com/liquibase/liquibase-neo4j" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neosemantics/">Neosemantics</a>
+              <ul class="project-links">
+                <li><a href="/labs/neosemantics/tutorial/" class="project-link">Getting Started</a></li>
+                <li><a href="/labs/neosemantics/4.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neo4j-helm/">Neo4j Helm</a>
+              <ul class="project-links">
+                <li><a href="/labs/neo4j-helm/" class="project-link">Details</a></li>
+                <li><a href="/labs/neo4j-helm/1.0.0/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neodash/">NeoDash</a>
+              <ul class="project-links">
+                <li><a href="/labs/neodash/" class="project-link">Details</a></li>
+                <li><a href="/labs/neodash/2.1/" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/labs/neomodel/">neomodel</a>
+              <ul class="project-links">
+                <li><a href="/labs/neomodel/" class="project-link">Details</a></li>
+                <li><a href="https://neomodel.readthedocs.io/en/latest/" target="_blank" class="project-link">Documentation</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable developer">
+          <a class="navbar-link" href="/developer/resources/">Get Help</a>
+          <div class="navbar-dropdown">
+            <div class="navbar-item project">
+              <a class="project-name" href="https://graphacademy.neo4j.com/?ref=docs" target="_blank">GraphAcademy</a>
+              <ul class="project-links">
+                <li><a class="project-link" href="https://graphacademy.neo4j.com/?ref=docs">Free, Self Paced Training</a></li>
+                <li><a class="project-link" href="https://graphacademy.neo4j.com/certification/?ref=docs" target="_blank">Certification</a></li>
+              </ul>
+            </div>
+
+            <div class="navbar-item project">
+              <a class="project-name" href="https://dev.neo4j.com/forum" target="_blank">Community Forum</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="https://dev.neo4j.com/chat" target="_blank">Discord Chat</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="/developer/kb" target="_blank">Knowledge Base</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="https://medium.com/neo4j" target="_blank">Neo4j Developer Blog</a>
+            </div>
+            <div class="navbar-item project">
+              <a class="project-name" href="https://www.youtube.com/neo4j" target="_blank">Neo4j Videos</a>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-item is-hoverable getting-started-cta">
+          <a class="navbar-link primary" href="https://neo4j.com/cloud/platform/aura-graph-database/?ref=docs-nav-get-started">Get Started Free</a>
+        </div>
+        <div class="navbar-item">
+          <a class="navbar-link search-button" href="#search" id="search_open"><svg width="23px" height="23px" viewBox="0 0 23 23"
+              version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+              class="fill-current float-right" id="search" role="button" title="Search Website">
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round"
+                stroke-linejoin="round">
+                <g transform="translate(-2.000000, -2.000000)" stroke="#a0aec0" stroke-width="1.5">
+                  <circle
+                    transform="translate(11.389364, 11.388564) rotate(-23.025000) translate(-11.389364, -11.388564) "
+                    cx="11.3893642" cy="11.3885639" r="8.056"></circle>
+                  <path d="M17.0853333,17.0844444 L23.3333333,23.3333333" ></path>
+                </g>
+              </g>
+            </svg><span class="navbar-mobile">Search</span></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="getting-started" data-version="">
+  <aside class="nav">
+    <div class="panels">
+      <div class="selectors">
+        
+      </div>
+      <div class="nav-panel-menu is-active" data-panel="menu">
+    <nav class="nav-menu">
+    <ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../">Welcome to Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../get-started-with-neo4j/">Get started with Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../get-started-with-neo4j/graph-database/">What is a graph database?</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../">Model your data for Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="./">Graph modeling guidelines</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modeling-designs/">Modeling designs</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../relational-to-graph-modeling/">Modeling: relational to graph</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../modeling-tips/">Graph modeling tips</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../graph-model-refactoring/">Graph model refactoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../data-modeling-tools/">Data modeling tools</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../data-import/">Import your data into Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-import/csv-import/">Importing CSV data into Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-import/json-rest-api-import/">Importing JSON data from a REST API into Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../data-import/relational-to-graph-import/">Import: RDBMS to graph</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../cypher-intro/">Query a Neo4j database</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/cypher-sql/">Comparing Cypher with SQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/patterns/">Patterns</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/patterns-in-practice/">Patterns in practice</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/results/">Getting the correct results</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/updating/">Updating the data</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/large-statements/">Composing large statements</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/subqueries/">Subqueries in Cypher</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/schema/">Defining a schema</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/dates-datetimes-durations/">Dates, datetimes, and durations</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/procedures-functions/">How to extend Cypher</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/load-csv/">Tutorial: Import data</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../cypher-intro/resources/">Cypher resources</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../languages-guides/">Connect to Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link nav-item-toggle" href="../../languages-guides/java/java-intro/">Using Neo4j from Java</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../languages-guides/java/spring-data-neo4j/">Spring Data Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../languages-guides/java/quarkus/">Quarkus</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../languages-guides/java/java-frameworks/">Helidon, Micronaut</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../languages-guides/java/neo4j-ogm/">Neo4j - OGM Object Graph Mapper</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../languages-guides/java/java-procedures/">Procedures and Functions</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/neo4j-dotnet/">Using Neo4j from .NET</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/neo4j-javascript/">Neo4j from JavaScript</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/neo4j-python/">Using Neo4j from Python</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/neo4j-go/">Using Neo4j from Go</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/integration-tools/integration/">Neo4j Connectors</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../languages-guides/community-drivers/">Community-contributed libraries</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../gds/">Data science with Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../graph-visualization/graph-visualization/">Visualize your data in Neo4j</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../graph-visualization/graph-visualization-tools/">Graph visualization tools</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link nav-item-toggle" href="../../appendix/">Appendix</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link nav-item-toggle" href="../../appendix/graphdb-concepts/">Graph database concepts</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/graphdb-concepts/graphdb-vs-rdbms/">Transition from relational to graph database</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/graphdb-concepts/graphdb-vs-nosql/">Transition from NoSQL to graph database</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../appendix/example-data/">Example datasets</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../appendix/getting-started-resources/">Getting started resources</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link nav-item-toggle" href="../../appendix/tutorials/tutorials-overview/">Tutorials</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/tutorials/guide-cypher-basics/">Tutorial: Getting Started with Cypher</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/tutorials/guide-build-a-recommendation-engine/">Tutorial: Build a Cypher Recommendation Engine</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/tutorials/guide-import-relational-and-etl/">Tutorial: Import data from a relational database into Neo4j</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../appendix/tutorials/guide-import-desktop-csv/">How-To: Import CSV data with Neo4j Desktop</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+  <div class="toolbar-wrapper">
+    <button class="nav-toggle" aria-label="Toggle Table of Contents"></button>
+    <a href="../../" class="home-link" aria-label="Go to home page"></a>
+    <nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../../">Getting Started</a></li>
+    <li><a href="../">
+        Model your data for Neo4j
+    </a></li>
+    <li><a href="./">
+        Graph modeling guidelines
+    </a></li>
+  </ul>
+</nav>
+        <div class="edit-this-page"><a href="https://github.com/neo4j/docs-getting-started/tree/HEAD/modules/ROOT/pages/data-modeling/guide-data-modeling.adoc">Edit this Page</a></div>
+    </div>
+</div>
+
+  <div class="content">
+<article class="doc">
+<div class="sect-header">
+<h1 class="page">Graph modeling guidelines</h1>
+</div>
+
+
+
+
+
+<div class="sect1">
+<h2 id="modeling-intro"><a class="anchor" href="#modeling-intro"></a>Introduction</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide is designed to walk you through the graph data modeling lifecycle of Neo4j.
+You will be introduced to the basic process of designing a graph data model that can answer a wide range of business questions across a variety of domains.</p>
+</div>
+<div class="paragraph">
+<p>If you have ever worked with an object model or an entity-relationship diagram, the labeled property graph model will seem familiar.</p>
+</div>
+<div class="paragraph">
+<p>Graph data modeling is the process in which a user describes an arbitrary domain as a connected graph of nodes and relationships with properties and labels.
+A Neo4j graph data model is designed to answer questions in the form of Cypher<sup>&reg;</sup> queries and solve business and technical problems by organizing a data structure for the graph database.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="whiteboard-friendly"><a class="anchor" href="#whiteboard-friendly"></a>Graph data model = whiteboard-friendly</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The graph data model is often referred to as being <em>whiteboard-friendly</em>.
+Typically, when designing a data model, people draw example data on the whiteboard and connect it to other data drawn to show how different items connect.
+The whiteboard model is then re-formatted and structured to fit normalized tables for a relational model.</p>
+</div>
+<div class="paragraph">
+<p>A similar process exists in graph data modeling, as well.
+However, instead of modifying the data model to fit a normalized table structure, the graph data model stays exactly as it was drawn on the whiteboard.
+This is where the graph data model gets its name for being <em>whiteboard-friendly</em>.</p>
+</div>
+<div class="paragraph">
+<p>Let us look at an example to demonstrate this.
+In the whiteboard drawing below, we have a data set about the movie <em>The Matrix</em>.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/matrix_whiteboard_model1.png" alt="600" width="600">
+</div>
+<div class="title">Figure 1. Matrix - whiteboard model</div>
+</div>
+<div class="paragraph">
+<p>Next, we formalize our entities a bit and match expected syntax for relationship types to create the node/relationship view for the property graph model.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/matrix_whiteboard_model2.svg" alt="600" width="600">
+</div>
+<div class="title">Figure 2. Matrix - match node and relationship format of property graph model</div>
+</div>
+<div class="paragraph">
+<p>For our next step, we add labels and determine properties of our nodes and relationships for the property graph model.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/matrix_whiteboard_model3-arr.svg" alt="600" width="600">
+</div>
+<div class="title">Figure 3. Matrix - add labels and properties</div>
+</div>
+<div class="paragraph">
+<p>Finally, you can view this data model in Neo4j Browser and ensure it matches what was drawn on the whiteboard.
+Also, notice how it is nearly identical to the whiteboard model we initially designed.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/matrix_whiteboard_model4.svg" alt="600" width="600">
+</div>
+<div class="title">Figure 4. Matrix - final model in Neo4j</div>
+</div>
+<div class="paragraph">
+<p>The ability to easily whiteboard your data model makes the graph data model incredibly simple and visual.
+There is no need to draw up business model versions or explain ERD terms to business users.
+Instead, the graph data model can be understood by anyone.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="describe-domain"><a class="anchor" href="#describe-domain"></a>Describing a domain</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To better understand the process of designing a graph data model, let us take an example domain for a small set of data and walk through each step of how to create a graph data model from it.
+Consider the following scenario describing our example data entities and connections.</p>
+</div>
+<div class="quoteblock">
+<div class="title">Scenario</div>
+<blockquote>
+Two <em>people</em>, <strong>Sally</strong> and <strong>John</strong>, <u>are friends</u>.
+Both <strong>John</strong> and <strong>Sally</strong> <u>have read</u> the <em>book</em>, <strong>Graph Databases</strong>.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>We can use the information in this statement to build our model by identifying the components as labels, nodes, and relationships.
+Let us take the scenario into pieces and define them as parts of our property graph model.
+However, for a start, we simplify the model.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/property_graph_elements-arr.svg" alt="700" width="700">
+</div>
+<div class="title">Figure 5. Review - property graph elements</div>
+</div>
+<div class="paragraph">
+<p>You can see that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Nodes (circles) represent objects.</p>
+</li>
+<li>
+<p>Nodes can have properties (name/value pairs).</p>
+</li>
+<li>
+<p>Relationships (arrows) connect nodes and represent actions.</p>
+</li>
+<li>
+<p>Relationships are directional and can have properties (name/value pairs).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="model-nodes"><a class="anchor" href="#model-nodes"></a>Nodes</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The first entities that we identify in our domain are the nodes.
+Nodes are one of two fundamental units that form a graph (the other fundamental unit is relationships).</p>
+</div>
+<div class="paragraph">
+<p>Nodes are often used to represent entities, but can also represent other domain components, depending on the use case.
+Nodes can contain properties that hold name-value pairs of data.
+Nodes can be assigned roles or types using one or more labels.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>You can often find nodes for the graph model by identifying nouns in your domain.
+Entities such as a car, a person, a customer, a company, an asset, and others similar can be defined as nodes for a good starting point.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>We can identify nodes as entities with a unique conceptual identity.
+In our scenario we began for Sally and John, these entities are outlined below in bold.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_defining_nodes"><a class="anchor" href="#_defining_nodes"></a>Defining nodes</h2>
+<div class="sectionbody">
+<div class="quoteblock">
+<div class="title">Scenario - Defining Nodes</div>
+<blockquote>
+Two people, <strong>John</strong> and <strong>Sally</strong>, are friends.
+Both <strong>John</strong> and <strong>Sally</strong> have read the book, <strong>Graph Databases</strong>.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Extracting the nodes:<br>
+* <strong>John</strong><br>
+* <strong>Sally</strong><br>
+* <strong>Graph Databases</strong></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Remember that a graph database takes each instance of an entity as a separate node (John and Sally would be two separate nodes, even though they are both people), and <em>Graph Databases</em> would be a separate node from another book.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/modeling_johnsally_nodes-arr.svg" alt="400" width="400">
+</div>
+<div class="title">Figure 6. Graph model - Nodes</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add-labels"><a class="anchor" href="#add-labels"></a>Labels</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now when we have an idea of what our nodes will be, we can decide what labels (if any) to assign our nodes to group or categorize them.
+Let us remind the definition of what labels do and how they are used in the graph data model.<br></p>
+</div>
+<div class="paragraph">
+<p><strong>A label is a named graph construct that is used to group nodes into sets.
+All nodes labeled with the same label belongs to the same set.</strong><br></p>
+</div>
+<div class="paragraph">
+<p>Many database queries can work with these sets instead of the whole graph, making queries easier to write and more efficient.
+A node may be labeled with any number of labels, including none, making labels an optional addition to the graph.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Similar to how we found the nodes for our graph model by identifying the nouns in our scenario, you can identify labels by generic nouns or groups of persons, places, or things.
+General nouns that fit groups of items such as Vehicle, Person, Customer, Company, Asset, and similar terms can be used as labels in your graph.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>To find out if we can group objects in our Sally and John scenario, we start by identifying the roles of our nodes (John, Sally, Graph Databases) mentioned in the statement.
+We can find two different types of objects in the statement, which are emphasized below.</p>
+</div>
+<div class="sect2">
+<h3 id="_defining_labels"><a class="anchor" href="#_defining_labels"></a>Defining labels</h3>
+<div class="quoteblock">
+<blockquote>
+Two <em>people</em>, John and Sally, are friends.
+Both John and Sally have read the <em>book</em>, Graph Databases.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Extracting the labels:<br>
+* <em>Person</em><br>
+* <em>Book</em></p>
+</div>
+<div class="paragraph">
+<p>Now that we have identified both our nodes and labels, we can update our graph data model to assign the labels to the nodes they describe.
+For <strong>John</strong> and <strong>Sally</strong>, we apply the label <em>Person</em>.
+For <strong>Graph Databases</strong>, we apply the label <em>Book</em>.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/modeling_johnsally_labels-arr.svg" alt="450" width="450">
+</div>
+<div class="title">Figure 7. Graph model - Labels</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="define-rels"><a class="anchor" href="#define-rels"></a>Relationships</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We now have our main entities and a way to group them, but we are still missing one vital piece of a graph database model - the relationships between the data!</p>
+</div>
+<div class="paragraph">
+<p>A relationship connects two nodes and allows us to find related nodes of data.
+It has a source node and a target node that shows the direction of the arrow.
+Although you must store a relationship in a particular direction, Neo4j has equal traversal performance in either direction, so you can query the relationship without specifying direction.</p>
+</div>
+<div class="paragraph">
+<p>The one core, consistent rule in a graph database is <strong>"No broken links"</strong>, ensuring that an existing relationship will never point to a non-existing endpoint.
+Since a relationship always has a start and end node, you cannot delete a node without also deleting its associated relationships.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Just as we have found nodes and labels by looking for nouns, you can often find relationships for the graph model by identifying actions or verbs in your domain.
+Actions such as DRIVES, HAS_READ, MANAGES, ACTED_IN, and others similar can be defined as different types of relationships to exist between nodes.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_defining_relationships"><a class="anchor" href="#_defining_relationships"></a>Defining relationships</h3>
+<div class="paragraph">
+<p>Let us identify the interactions (which are underlined in our scenario below) between the <strong>John</strong>, <strong>Sally</strong>, and <strong>Graph Database</strong> nodes.</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+Two people, Sally and John, <u>are friends</u>.
+Both John and Sally <u>have read</u> the book, Graph Databases.
+</blockquote>
+</div>
+<div class="paragraph">
+<p>Relationships between nodes:<br>
+* John <u>is friends with</u> Sally<br>
+* Sally <u>is friends with</u> John<br>
+* John <u>has read</u> Graph Databases<br>
+* Sally <u>has read</u> Graph Databases</p>
+</div>
+<div class="paragraph">
+<p>To sum up our findings, our John and Sally nodes (labeled <em>Person</em>) can be connected to each other by the <u>is friends with</u> relationship.
+John and Sally have both read the Graph Databases book, so we can connect each of their nodes (each labeled <em>Person</em>) to the Graph Databases node (labeled <em>Book</em>) with a <u>has read</u> relationship.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/modeling_johnsally_relationships-arr.svg" alt="450" width="450">
+</div>
+<div class="title">Figure 8. Graph model - Relationships</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fillin-properties"><a class="anchor" href="#fillin-properties"></a>Properties</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We have gone through the process of creating a basic graph data model for the interactions between people and books.
+We can take this data model further by defining attributes of these entities as key-value properties.</p>
+</div>
+<div class="paragraph">
+<p>Properties are name-value pairs of data that you can store on nodes or on relationships.
+Most standard data types are supported as properties, and you can find information on that in the section <a href="../../appendix/graphdb-concepts/" class="xref page">Graph database concepts</a>.</p>
+</div>
+<div class="paragraph">
+<p>Properties allow you to store relevant data about the node or relationship with the entity it describes.
+They can often be found by knowing what kinds of questions your use case needs to ask of your data.</p>
+</div>
+<div class="sect2">
+<h3 id="_defining_properties"><a class="anchor" href="#_defining_properties"></a>Defining properties</h3>
+<div class="paragraph">
+<p>For our John and Sally scenario, we can list some questions that we might want to answer about the data.</p>
+</div>
+<div class="ulist">
+<div class="title">Questions to ask of our John and Sally data model:</div>
+<ul>
+<li>
+<p>When did John and Sally become friends? Or how long have they been friends?</p>
+</li>
+<li>
+<p>What is the average rating of the Graph Databases book?</p>
+</li>
+<li>
+<p>Who is the author of the Graph Databases book?</p>
+</li>
+<li>
+<p>How old is Sally?</p>
+</li>
+<li>
+<p>How old is John?</p>
+</li>
+<li>
+<p>Who is older, Sally or John?</p>
+</li>
+<li>
+<p>Who read the <em>Graph Databases</em> book first, Sally or John?</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>From this list of questions, you can identify the attributes that we need to store on the entities within our data model in order to answer these questions.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/modeling_johnsally_properties-arr.svg" alt="600" width="600">
+</div>
+<div class="title">Figure 9. Graph model - Properties</div>
+</div>
+<div class="paragraph">
+<p>With the final model, we now can answer each of the questions we defined in our list.
+Of course, we can grow and change the model over time and add/remove relationships, nodes, properties, and labels.
+The flexibility and simplicity of the property graph data model allows users to easily review the data structure and update it according to the changing needs of the business.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_implementing_the_model"><a class="anchor" href="#_implementing_the_model"></a>Implementing the model</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You use Cypher statements to create your graph.
+There are many ways to load data into the graph.
+Here we use the <code>MERGE</code> clause to create the data model.</p>
+</div>
+<div class="paragraph">
+<p>Run the following code to create the graph for this data model:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-Cypher hljs" data-lang="Cypher">MERGE (j:Person {name: 'John'})
+  ON CREATE set j.age = 27
+MERGE (s:Person {name: 'Sally'})
+  ON CREATE set s.age = 32
+MERGE (b:Book {title: 'Graph Databases'})
+  ON CREATE set b.authors = ['Jim Webber', 'Ian Robinson']
+MERGE (j)-[rel1:IS_FRIENDS_WITH]-&gt;(s)
+  ON CREATE SET rel1.since = '01/09/2013'
+MERGE (j)-[rel2:HAS_READ]-&gt;(b)
+  ON CREATE SET rel2.on = '02/03/2013', rel2.rated = 5
+MERGE (s)-[rel3:HAS_READ]-&gt;(b)
+  ON CREATE SET rel3.on = '02/09/2013', rel3.rated = 4</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_viewing_the_data_in_neo4j"><a class="anchor" href="#_viewing_the_data_in_neo4j"></a>Viewing the data in Neo4j</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you have created the graph, you can view it with the following Cypher statement:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-Cypher hljs" data-lang="Cypher">MATCH (n) RETURN n</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In Neo4j Browser, you can hover over each node and relationship in the graph to view its properties.</p>
+</div>
+<div class="imageblock popup-link">
+<div class="content">
+<img src="../../_images/ImplementedModel.png" alt="ImplementedModel">
+</div>
+<div class="title">Figure 10. Implemented model</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="graph-design"><a class="anchor" href="#graph-design"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>That is the introduction to data modeling using a simple, straightforward scenario.
+There are plenty of opportunities throughout the upcoming sections to practice modeling domains and analyzing changes to the model that might need to be made.</p>
+</div>
+<div class="paragraph">
+<p>Every data model is unique, depending on the use case and the types of questions that users need to answer with the data.
+Because of this, there is no "one-size-fits-all" approach to data modeling.
+Using best practices and careful modeling will provide the most valuable result in producing an accurate data model that benefits your processes and use case.
+A walkthrough of designs for different use cases is <a href="../modeling-designs/" class="xref page">in the following section</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="modeling-resources"><a class="anchor" href="#modeling-resources"></a>Resources</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://neo4j.com/blog/data-modeling-basics/" target="_blank" rel="noopener">Blog post: Graph Data Modeling Basics</a></p>
+</li>
+<li>
+<p><a href="https://neo4j.com/graphgists/" target="_blank" rel="noopener">GraphGists: Graph Model Examples</a></p>
+</li>
+<li>
+<p><a href="https://neo4j.com/blog/data-modeling-pitfalls/" target="_blank" rel="noopener">Blog post: Data Modeling Pitfalls to Avoid</a></p>
+</li>
+<li>
+<p><a href="https://neo4j.com/blog/data-modeling-basics/" target="_blank" rel="noopener">Blog post: Graph Data Modeling Basics</a></p>
+</li>
+<li>
+<p><a href="https://neo4j.com/graphgists/" target="_blank" rel="noopener">GraphGists: Graph Model Examples</a></p>
+</li>
+<li>
+<p><a href="https://neo4j.com/blog/data-modeling-pitfalls/" target="_blank" rel="noopener">Blog post: Data Modeling Pitfalls to Avoid</a></p>
+</li>
+<li>
+<p><a href="https://graphacademy.neo4j.com/courses/modeling-fundamentals/" target="_blank" rel="noopener">Free online training course: Graph Data Modeling Fundamentals</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../">Model your data for Neo4j</a></span>
+
+  <span class="next"><a href="../modeling-designs/">Modeling designs</a></span>
+</nav>
+    <div class="feedback">
+    <div class="header question">
+        <p><strong>Was this page helpful?</strong></p>
+
+        <svg width="22px" height="22px" viewBox="0 0 22 22" role="button" class="no" aria-label="No, this page isn't helpful">
+            <path
+                d="M6.25,15.8333333 C6.25,13.7622655 7.92893219,12.0833333 10,12.0833333 C12.0710678,12.0833333 13.75,13.7622655 13.75,15.8333333"
+                ></path>
+            <circle  cx="10" cy="10" r="9.58333333"></circle>
+            <path
+                d="M12.5,4.58333333 C12.8934466,4.05873783 13.5109223,3.75 14.1666667,3.75 C14.822411,3.75 15.4398867,4.05873783 15.8333333,4.58333333"
+                ></path>
+            <line x1="4.58333333" y1="7.91666667" x2="7.08333333" y2="7.91666667" ></line>
+            <path
+                d="M7.08333333,8.54166667 C6.96827401,8.54166667 6.875,8.44839266 6.875,8.33333333 C6.875,8.21827401 6.96827401,8.125 7.08333333,8.125 C7.19839266,8.125 7.29166667,8.21827401 7.29166667,8.33333333 C7.29166667,8.44839266 7.19839266,8.54166667 7.08333333,8.54166667"
+                ></path>
+            <line x1="12.9166667" y1="7.91666667" x2="15.4166667" y2="7.91666667" ></line>
+            <path
+                d="M15.4166667,8.54166667 C15.3016073,8.54166667 15.2083333,8.44839266 15.2083333,8.33333333 C15.2083333,8.21827401 15.3016073,8.125 15.4166667,8.125 C15.531726,8.125 15.625,8.21827401 15.625,8.33333333 C15.625,8.44839266 15.531726,8.54166667 15.4166667,8.54166667"
+                ></path>
+            <path
+                d="M4.16666667,4.58333333 C4.5601133,4.05873783 5.17758895,3.75 5.83333333,3.75 C6.48907772,3.75 7.10655337,4.05873783 7.5,4.58333333"
+                ></path>
+        </svg>
+
+        <svg width="22px" height="22px" viewBox="0 0 22 22" role="button" class="yes" aria-label="Yes, this page is helpful">
+            <circle  cx="10" cy="10" r="9.58333333"></circle>
+            <path
+                d="M5.41666667,8.125 C5.53172599,8.125 5.625,8.21827401 5.625,8.33333333 C5.625,8.44839266 5.53172599,8.54166667 5.41666667,8.54166667 C5.30160734,8.54166667 5.20833333,8.44839266 5.20833333,8.33333333 C5.20833333,8.21827401 5.30160734,8.125 5.41666667,8.125"
+                ></path>
+            <path
+                d="M14.5833333,8.125 C14.468274,8.125 14.375,8.21827401 14.375,8.33333333 C14.375,8.44839266 14.468274,8.54166667 14.5833333,8.54166667 C14.6983927,8.54166667 14.7916667,8.44839266 14.7916667,8.33333333 C14.7916667,8.21827401 14.6983927,8.125 14.5833333,8.125"
+                ></path>
+            <path
+                d="M13.2275,12.9166657 C13.4853075,12.9162808 13.7287776,13.035241 13.8869095,13.2388563 C14.0450415,13.4424715 14.1000278,13.7078123 14.0358333,13.9575 C13.562901,15.7999679 11.9021969,17.0882321 10,17.0882321 C8.09780311,17.0882321 6.43709903,15.7999679 5.96416667,13.9575 C5.89997223,13.7078123 5.95495852,13.4424715 6.11309045,13.2388563 C6.27122239,13.035241 6.51469246,12.9162808 6.7725,12.9166657 L13.2275,12.9166657 Z"
+                ></path>
+        </svg>
+    </div>
+
+
+</div></article>
+<aside class="toc sidebar" data-title="Contents"
+  data-levels="2">
+  <div class="toc-menu">
+    <div class="toc-menu-placeholder"></div>
+
+      </div>
+  </aside>  </div>
+</main>
+</div>
+<footer class="footer">
+  <div class="wrapper">
+  <div class="column">
+    <div class="logo-footer"></div>
+    <p>© <span id="footer-copyright-year">2023</span> Neo4j, Inc.<br>
+      <a href="https://neo4j.com/terms/">Terms</a> | <a href="https://neo4j.com/privacy-policy/">Privacy </a> | <a href="https://neo4j.com/sitemap/">Sitemap</a></p>
+    <p>Neo4j<sup>®</sup>, Neo Technology<sup>®</sup>, Cypher<sup>®</sup>, Neo4j<sup>®</sup> Bloom<sup>™</sup> and
+      Neo4j<sup>®</sup> Aura<sup>™</sup> are registered trademarks
+      of Neo4j, Inc. All other marks are owned by their respective companies.</p>
+  </div>
+
+  <div class="column">
+    <h2><a href="https://neo4j.com/contact-us/?ref=footer">Contact Us →</a></h2>
+    <p>US: 1-855-636-4532<br>
+      Sweden +46 171 480 113<br>
+      UK: +44 20 3868 3223<br>
+      France: +33 (0) 1 88 46 13 20<br>
+      <!--Germany: +49 (0)89 26204 6300</p>-->
+    </p>
+  </div>
+  <div class="column links">
+    <h2>Learn</h2>
+    <ul>
+      <li><i class="fa fa-wrench" aria-hidden="true"></i> <a rel="noopener" href="https://neo4j.com/sandbox/?ref=developer-footer">Sandbox</a></li>
+      <li><i class="fa fa-comments-o" aria-hidden="true"></i> <a rel="noopener" href="https://community.neo4j.com?ref=developer-footer" target="_blank">Neo4j Community Site</a></li>
+      <li><i class="fa fa-book" aria-hidden="true"></i> <a rel="noopener" href="https://medium.com/neo4j" target="_blank">Neo4j Developer Blog</a></li>
+      <li><i class="fa fa-youtube" aria-hidden="true"></i> <a rel="noopener" href="https://www.youtube.com/neo4j" target="_blank">Neo4j Videos</a></li>
+      <li><i class="fa fa-graduation-cap" aria-hidden="true"></i> <a rel="noopener" href="https://neo4j.com/graphacademy/?ref=developer-footer">GraphAcademy</a></li>
+      <li><i class="fa fa-flask" aria-hidden="true"></i> <a href="https://neo4j.com/labs/?ref=developer-footer">Neo4j Labs</a></li>
+    </ul>
+  </div>
+  <div class="column links">
+    <h2>Social</h2>
+    <ul>
+      <li><i class="fa fa-twitter" aria-hidden="true"></i> <a rel="noopener" href="https://twitter.com/neo4j" target="_blank">Twitter</a></li>
+      <li><i class="fa fa-meetup" aria-hidden="true"></i> <a rel="noopener" href="https://www.meetup.com/Neo4j-Online-Meetup/" target="_blank">Meetups</a></li>
+      <li><i class="fa fa-github" aria-hidden="true"></i> <a rel="noopener" href="https://github.com/neo4j/neo4j" target="_blank">Github</a></li>
+      <li><i class="fa fa-stack-overflow" aria-hidden="true"></i> <a rel="noopener" href="https://stackoverflow.com/questions/tagged/neo4j" target="_blank">Stack Overflow</a></li>
+
+      <li class="speaker-program"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdEcNnMruES5iwvOVYovmS1D_P1ZL_HdUOitFrwrvruv5PZvA/viewform">Want to Speak?</a></li>
+    </ul>
+  </div>
+</div>
+</footer>
+
+  <script src="../../../assets/js/vendor/auth0.js"></script>
+  <script src="../../../assets/js/site.js"></script>
+  <script async src="../../../assets/js/vendor/highlight.js"></script>
+  <script async src="../../../assets/js/vendor/image-zoom.js"></script>
+
+
+<div id="neo4j-algolia-search-v2"></div>
+<script src="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/bundle.js"></script>
+<script src="https://neo4j.com/wp-content/themes/neo4jweb/assets/neo4j-react-modules-assets/search-preact/chunkless/polyfill.js"></script>
+<script>window.algoliaSearchOptions = {indexName: "docs",placeholder: "Search Documentation",template: "docs"}</script>  </body>
+</html>
